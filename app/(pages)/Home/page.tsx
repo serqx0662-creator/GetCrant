@@ -7,7 +7,7 @@ export default function Home() {
             <Header />
 
             {/* Твой главный экран с отступом, чтобы шапка его не закрывала */}
-            <main className="pt-20">
+            <main className="pt-10">
                 <GetGrantHero />
             </main>
 
