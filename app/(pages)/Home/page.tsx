@@ -1,6 +1,8 @@
 import Header from "@/app/components/Header";
 import GetGrantHero from "@/app/(pages)/Home/GetGrantHero";
 import GetGrantExamGrid from "./GetGrantExamGrid";
+import Footer from "@/app/components/Footer";
+ 
 
 export default function Home() {
     return (
@@ -13,7 +15,7 @@ export default function Home() {
                 <GetGrantExamGrid/>
             </main>
 
-            {/* Сюда потом просто докинешь другие секции */}
+            <Footer/>
         </div>
     );
 }
