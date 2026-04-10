@@ -2,6 +2,35 @@
 /* @import "tw-animate-css"; */
 @import "shadcn/tailwind.css";
 
+@layer base {
+    /* Настройка всей полосы скролла */
+    ::-webkit-scrollbar {
+        width: 10px;               /* Ширина вертикального скролла */
+        height: 10px;              /* Высота горизонтального скролла */
+    }
+
+    /* Фон дорожки, по которой едет ползунок */
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;       /* Светлый фон для общей страницы */
+    }
+
+    /* Сам ползунок (барабан) */
+    ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;       /* Цвет ползунка (slate-300) */
+        border-radius: 20px;       /* Закругление */
+        border: 2px solid #f1f1f1; /* Отступ от краев, чтобы казался тоньше */
+    }
+
+    /* Цвет при наведении */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #3b82f6;       /* Твой фирменный синий (blue-500) */
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
