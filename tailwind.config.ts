@@ -21,8 +21,7 @@ const config: Config = {
         },
     },
     plugins: [
-        // Плагин для переноса длинных заголовков
-        require('tailwindcss-text-wrap'),
+
     ],
 };
 export default config;

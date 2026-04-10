@@ -1,6 +1,9 @@
 import Header from "@/app/components/Header";
 import GetGrantHero from "@/app/(pages)/Home/GetGrantHero";
+import GetGrantExamGrid from "./GetGrantExamGrid";
 import BentoGrid from "@/app/(pages)/Home/BentoGrid";
+import Footer from "@/app/components/Footer";
+
 
 export default function Home() {
     return (
@@ -10,10 +13,11 @@ export default function Home() {
             {/* Твой главный экран с отступом, чтобы шапка его не закрывала */}
             <main className="pt-10">
                 <GetGrantHero />
+                <GetGrantExamGrid/>
                 <BentoGrid/>
             </main>
 
-            {/* Сюда потом просто докинешь другие секции */}
+            <Footer/>
         </div>
     );
 }
