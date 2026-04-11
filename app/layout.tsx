@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import "@/app/globals.css";
-import { Geist } from "next/font/google";
+import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+// Inter — основной шрифт для всего контента (карточки, кнопки, описания)
+const inter = Inter({ subsets: ["latin", "cyrillic"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
     title: "GetGrant",
@@ -11,15 +12,15 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-                                       children,
-                                   }: {
+    children,
+}: {
     children: React.ReactNode;
 }) {
     return (
-        <html lang="ru" className={cn("font-sans", geist.variable)}>
-        <body className="antialiased bg-white">
-            {children}
-        </body>
+        <html lang="ru" className={cn("font-sans", inter.variable)}>
+            <body className="antialiased bg-white">
+                {children}
+            </body>
         </html>
     );
 }

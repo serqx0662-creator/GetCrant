@@ -8,7 +8,10 @@ const config: Config = {
     ],
     theme: {
         extend: {
-            // Добавляем плавное появление
+            fontFamily: {
+                // Segoe UI — для заголовков секций
+                segoe: ["Segoe UI", "Tahoma", "Geneva", "Verdana", "sans-serif"],
+            },
             animation: {
                 'fade-in': 'fadeIn 0.6s ease-out forwards',
             },
