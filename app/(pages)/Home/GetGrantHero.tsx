@@ -12,7 +12,7 @@ export default function GetGrantHero() {
     ];
 
     return (
-        <section className="relative w-full min-h-screen bg-white text-gray-900 overflow-hidden flex items-center">
+        <section className="relative w-full min-h-screen py-10 md:py-14 bg-white text-gray-900 overflow-hidden flex items-center">
             <div className="absolute inset-0 -z-10 bg-[radial-gradient(45%_40%_at_50%_60%,#eef2ff_0%,#fff_100%)]"></div>
 
             <div className="container mx-auto px-6 lg:px-12 pt-20">
