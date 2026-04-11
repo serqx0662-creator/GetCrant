@@ -1,9 +1,12 @@
 "use client";
 
-import { useRef } from "react";
+import { useState } from "react";
 import { BookOpen, Users, MapPin } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Autoplay, Mousewheel } from "swiper/modules";
+import type { Swiper as SwiperType } from "swiper";
+import "swiper/css";
 import SectionHeader from "@/app/components/SectionHeader";
 
 // ─── Типы ────────────────────────────────────────────────────────────────────
@@ -21,32 +24,30 @@ interface University {
 // ─── Данные ──────────────────────────────────────────────────────────────────
 
 const universities: University[] = [
-  { id: 1,  name: "Harvard University",                 programs: "120 программ", students: "23 000", location: "Cambridge, MA, США",       image: "/image/HomeContent/PartnerUniversities/Frame 53 (3).png",            href: "https://en.wikipedia.org/wiki/Harvard_University" },
-  { id: 2,  name: "Stanford University",                programs: "150 программ", students: "22 000", location: "Stanford, CA, США",         image: "/image/HomeContent/PartnerUniversities/Frame 53 (4).png",            href: "https://en.wikipedia.org/wiki/Stanford_University" },
-  { id: 3,  name: "MIT",                                programs: "120 программ", students: "11 000", location: "Cambridge, MA, США",       image: "/image/HomeContent/PartnerUniversities/Frame 53 (5).png",            href: "https://en.wikipedia.org/wiki/Massachusetts_Institute_of_Technology" },
-  { id: 4,  name: "University of California, Berkeley", programs: "140 программ", students: "30 000", location: "Berkeley, CA, США",        image: "/image/HomeContent/PartnerUniversities/Frame 53 (6).png",            href: "https://en.wikipedia.org/wiki/University_of_California,_Berkeley" },
-  { id: 5,  name: "Princeton University",               programs: "90 программ",  students: "8 000",  location: "Princeton, NJ, США",       image: "/image/HomeContent/PartnerUniversities/Princeton University.webp",   href: "https://en.wikipedia.org/wiki/Princeton_University" },
-  { id: 6,  name: "Oxford University",                  programs: "150 программ", students: "24 000", location: "Oxford, Великобритания",    image: "/image/HomeContent/PartnerUniversities/Oxford University.webp",     href: "https://en.wikipedia.org/wiki/University_of_Oxford" },
-  { id: 7,  name: "Cambridge University",               programs: "180 программ", students: "21 000", location: "Cambridge, Великобритания", image: "/image/HomeContent/PartnerUniversities/Cambridge University.jpg",   href: "https://en.wikipedia.org/wiki/University_of_Cambridge" },
-  { id: 8,  name: "ETH Zurich",                         programs: "95 программ",  students: "22 000", location: "Цюрих, Швейцария",          image: "/image/HomeContent/PartnerUniversities/ETH Zurich.jpg",             href: "https://en.wikipedia.org/wiki/ETH_Zurich" },
-  { id: 9,  name: "University of Toronto",              programs: "130 программ", students: "97 000", location: "Торонто, Канада",           image: "/image/HomeContent/PartnerUniversities/University of Toronto.jpg",  href: "https://en.wikipedia.org/wiki/University_of_Toronto" },
-  { id: 10, name: "University of Melbourne",            programs: "100 программ", students: "52 000", location: "Мельбурн, Австралия",       image: "/image/HomeContent/PartnerUniversities/University of Melbourne.jpg", href: "https://en.wikipedia.org/wiki/University_of_Melbourne" },
+  { id: 1,  name: "Harvard University",                 programs: "120 программ", students: "23 000", location: "Cambridge, MA, США",       image: "/image/HomeContent/PartnerUniversities/Frame 53 (3).png",            href: "https://ru.wikipedia.org/wiki/Гарвардский_университет" },
+  { id: 2,  name: "Stanford University",                programs: "150 программ", students: "22 000", location: "Stanford, CA, США",         image: "/image/HomeContent/PartnerUniversities/Frame 53 (4).png",            href: "https://ru.wikipedia.org/wiki/Стэнфордский_университет" },
+  { id: 3,  name: "MIT",                                programs: "120 программ", students: "11 000", location: "Cambridge, MA, США",       image: "/image/HomeContent/PartnerUniversities/Frame 53 (5).png",            href: "https://ru.wikipedia.org/wiki/Массачусетский_технологический_институт" },
+  { id: 4,  name: "University of California, Berkeley", programs: "140 программ", students: "30 000", location: "Berkeley, CA, США",        image: "/image/HomeContent/PartnerUniversities/Frame 53 (6).png",            href: "https://ru.wikipedia.org/wiki/Калифорнийский_университет_в_Беркли" },
+  { id: 5,  name: "Princeton University",               programs: "90 программ",  students: "8 000",  location: "Princeton, NJ, США",       image: "/image/HomeContent/PartnerUniversities/Princeton University.webp",   href: "https://ru.wikipedia.org/wiki/Принстонский_университет" },
+  { id: 6,  name: "Oxford University",                  programs: "150 программ", students: "24 000", location: "Oxford, Великобритания",    image: "/image/HomeContent/PartnerUniversities/Oxford University.webp",     href: "https://ru.wikipedia.org/wiki/Оксфордский_университет" },
+  { id: 7,  name: "Cambridge University",               programs: "180 программ", students: "21 000", location: "Cambridge, Великобритания", image: "/image/HomeContent/PartnerUniversities/Cambridge University.jpg",   href: "https://ru.wikipedia.org/wiki/Кембриджский_университет" },
+  { id: 8,  name: "ETH Zurich",                         programs: "95 программ",  students: "22 000", location: "Цюрих, Швейцария",          image: "/image/HomeContent/PartnerUniversities/ETH Zurich.jpg",             href: "https://ru.wikipedia.org/wiki/Швейцарская_высшая_техническая_школа_Цюриха" },
+  { id: 9,  name: "University of Toronto",              programs: "130 программ", students: "97 000", location: "Торонто, Канада",           image: "/image/HomeContent/PartnerUniversities/University of Toronto.jpg",  href: "https://ru.wikipedia.org/wiki/Университет_Торонто" },
+  { id: 10, name: "University of Melbourne",            programs: "100 программ", students: "52 000", location: "Мельбурн, Австралия",       image: "/image/HomeContent/PartnerUniversities/University of Melbourne.jpg", href: "https://ru.wikipedia.org/wiki/Мельбурнский_университет" },
 ];
 
 // ─── Карточка ─────────────────────────────────────────────────────────────────
 
 function UniversityCard({ university }: { university: University }) {
   return (
-    <Link
-      href={university.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="flex-shrink-0 flex flex-col w-[300px] p-[10px] pb-[20px] gap-[10px] rounded-2xl border border-[#EAECF0] bg-white transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+    <div
+      className="group flex flex-col w-[300px] p-[10px] pb-[20px] gap-[10px] rounded-2xl border border-[#EAECF0] bg-white transition-all duration-300 hover:-translate-y-2 hover:shadow-xl cursor-pointer"
+      onClick={() => window.open(university.href, '_blank')}
     >
       {/* Фото */}
       <div className="relative w-full h-[160px] rounded-xl overflow-hidden bg-slate-200">
         {university.image ? (
-          <Image src={university.image} alt={university.name} fill className="object-cover" sizes="300px" />
+          <Image src={university.image} alt={university.name} fill className="object-cover scale-100 transition-transform duration-500 ease-out group-hover:scale-110" sizes="300px" />
         ) : (
           <div className="w-full h-full bg-slate-200" />
         )}
@@ -83,18 +84,14 @@ function UniversityCard({ university }: { university: University }) {
           </a>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
 
 // ─── Секция ───────────────────────────────────────────────────────────────────
 
 export default function PartnerUniversities() {
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  const scroll = (dir: "left" | "right") => {
-    scrollRef.current?.scrollBy({ left: dir === "left" ? -320 : 320, behavior: "smooth" });
-  };
+  const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
 
   return (
     <section className="py-12">
@@ -102,20 +99,28 @@ export default function PartnerUniversities() {
         <SectionHeader
           title="Университеты-партнёры"
           subtitle="Мы работаем с ведущими университетами мира"
-          onPrev={() => scroll("left")}
-          onNext={() => scroll("right")}
+          onPrev={() => swiperInstance?.slidePrev()}
+          onNext={() => swiperInstance?.slideNext()}
         />
       </div>
 
-      <div
-        ref={scrollRef}
-        className="flex gap-5 overflow-x-auto px-6 lg:px-12 pb-4"
-        style={{ scrollbarWidth: "none" }}
+      <Swiper
+        modules={[Navigation, Autoplay, Mousewheel]}
+        onSwiper={setSwiperInstance}
+        loop={true}
+        autoplay={{ delay: 3000, disableOnInteraction: false, pauseOnMouseEnter: true }}
+        mousewheel={{ forceToAxis: true, sensitivity: 1 }}
+        slidesPerView="auto"
+        spaceBetween={20}
+        grabCursor={true}
+        className="!px-6 lg:!px-12 !pb-4"
       >
         {universities.map((u) => (
-          <UniversityCard key={u.id} university={u} />
+          <SwiperSlide key={u.id} style={{ width: "auto" }}>
+            <UniversityCard university={u} />
+          </SwiperSlide>
         ))}
-      </div>
+      </Swiper>
     </section>
   );
 }

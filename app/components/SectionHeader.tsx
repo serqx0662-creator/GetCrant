@@ -17,14 +17,14 @@ export default function SectionHeader({ title, subtitle, onPrev, onNext }: Secti
       <div className="flex items-center gap-2 mt-1">
         <button
           onClick={onPrev}
-          className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-200 hover:bg-gray-100 transition-colors text-gray-600"
+          className="w-[40px] h-[40px] flex items-center justify-center rounded-[8px] border border-[#D0D5DD] bg-white hover:bg-gray-50 transition-colors text-[#1D2939]"
           aria-label="Назад"
         >
           <ChevronLeft size={16} />
         </button>
         <button
           onClick={onNext}
-          className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-200 hover:bg-gray-100 transition-colors text-gray-600"
+          className="w-[40px] h-[40px] flex items-center justify-center rounded-[8px] border border-[#D0D5DD] bg-white hover:bg-gray-50 transition-colors text-[#1D2939]"
           aria-label="Вперёд"
         >
           <ChevronRight size={16} />

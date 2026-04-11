@@ -1,9 +1,13 @@
 "use client";
 
-import { useRef } from "react";
+import { useState } from "react";
 import { Check, Building2, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Autoplay, Mousewheel } from "swiper/modules";
+import type { Swiper as SwiperType } from "swiper";
+import "swiper/css";
 import SectionHeader from "@/app/components/SectionHeader";
 
 // ─── Типы ────────────────────────────────────────────────────────────────────
@@ -30,7 +34,7 @@ const countries: Country[] = [
     programs: "2,500+", students: "200+",
     benefits: ["Топ университеты мира", "ОРТ — работа после учёбы", "Стипендии и гранты"],
     image: "/image/HomeContent/Countries/Rectangle 1 (1).png",
-    href: "https://en.wikipedia.org/wiki/United_States",
+    href: "https://ru.wikipedia.org/wiki/США",
   },
   {
     id: 2, name: "Канада", nameEn: "Canada", flag: "🇨🇦",
@@ -38,7 +42,7 @@ const countries: Country[] = [
     programs: "1,000+", students: "150+",
     benefits: ["Высокое качество образования", "Работа для студентов", "Множество стипендий"],
     image: "/image/HomeContent/Countries/Rectangle 1 (2).png",
-    href: "https://en.wikipedia.org/wiki/Canada",
+    href: "https://ru.wikipedia.org/wiki/Канада",
   },
   {
     id: 3, name: "Великобритания", nameEn: "United Kingdom", flag: "🇬🇧",
@@ -46,7 +50,7 @@ const countries: Country[] = [
     programs: "1,300+", students: "170+",
     benefits: ["Классическое образование", "Визовые возможности", "Государственные и частные гранты"],
     image: "/image/HomeContent/Countries/Rectangle 1 (3).png",
-    href: "https://en.wikipedia.org/wiki/United_Kingdom",
+    href: "https://ru.wikipedia.org/wiki/Великобритания",
   },
   {
     id: 4, name: "Австралия", nameEn: "Australia", flag: "🇦🇺",
@@ -54,7 +58,7 @@ const countries: Country[] = [
     programs: "1,200+", students: "100+",
     benefits: ["Многокультурная среда", "Гибкие учебные курсы", "Стипендии от университетов"],
     image: "/image/HomeContent/Countries/Rectangle 1 (4).png",
-    href: "https://en.wikipedia.org/wiki/Australia",
+    href: "https://ru.wikipedia.org/wiki/Австралия",
   },
   {
     id: 5, name: "Новая Зеландия", nameEn: "New Zealand", flag: "🇳🇿",
@@ -62,7 +66,7 @@ const countries: Country[] = [
     programs: "500+", students: "80+",
     benefits: ["Индивидуальный подход к студентам", "Работа во время учёбы", "Стипендии для студентов"],
     image: "/image/HomeContent/Countries/Новая Зеландия.jpg",
-    href: "https://en.wikipedia.org/wiki/New_Zealand",
+    href: "https://ru.wikipedia.org/wiki/Новая_Зеландия",
   },
   {
     id: 6, name: "Германия", nameEn: "Germany", flag: "🇩🇪",
@@ -70,7 +74,7 @@ const countries: Country[] = [
     programs: "1,800+", students: "350+",
     benefits: ["Бесплатное образование", "Право на работу", "Сильная инженерная школа"],
     image: "/image/HomeContent/Countries/Германия.webp",
-    href: "https://en.wikipedia.org/wiki/Germany",
+    href: "https://ru.wikipedia.org/wiki/Германия",
   },
   {
     id: 7, name: "Нидерланды", nameEn: "Netherlands", flag: "🇳🇱",
@@ -78,7 +82,7 @@ const countries: Country[] = [
     programs: "700+", students: "90+",
     benefits: ["Программы на английском", "Высокий уровень жизни", "Гранты для иностранцев"],
     image: "/image/HomeContent/Countries/Нидерланды.webp",
-    href: "https://en.wikipedia.org/wiki/Netherlands",
+    href: "https://ru.wikipedia.org/wiki/Нидерланды",
   },
   {
     id: 8, name: "Франция", nameEn: "France", flag: "🇫🇷",
@@ -86,7 +90,7 @@ const countries: Country[] = [
     programs: "800+", students: "110+",
     benefits: ["Престижные Grandes Écoles", "Стипендии Eiffel", "Культурная среда"],
     image: "/image/HomeContent/Countries/Франция.webp",
-    href: "https://en.wikipedia.org/wiki/France",
+    href: "https://ru.wikipedia.org/wiki/Франция",
   },
 ];
 
@@ -98,12 +102,12 @@ function CountryCard({ country }: { country: Country }) {
       href={country.href}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex-shrink-0 flex flex-col w-[300px] p-[10px] pb-[20px] gap-[10px] rounded-2xl border border-[#EAECF0] bg-white transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+      className="group flex flex-col w-[300px] p-[10px] pb-[20px] gap-[10px] rounded-2xl border border-[#EAECF0] bg-white transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
     >
       {/* Изображение с оверлеем */}
       <div className="relative w-full h-[160px] rounded-xl overflow-hidden bg-slate-200">
         {country.image ? (
-          <Image src={country.image} alt={country.name} fill className="object-cover" sizes="300px" />
+          <Image src={country.image} alt={country.name} fill className="object-cover scale-100 transition-transform duration-500 ease-out group-hover:scale-110" sizes="300px" />
         ) : (
           <div className="w-full h-full bg-slate-200 animate-pulse" />
         )}
@@ -153,11 +157,7 @@ function CountryCard({ country }: { country: Country }) {
 // ─── Секция ───────────────────────────────────────────────────────────────────
 
 export default function PopularCountries() {
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  const scroll = (dir: "left" | "right") => {
-    scrollRef.current?.scrollBy({ left: dir === "left" ? -320 : 320, behavior: "smooth" });
-  };
+  const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
 
   return (
     <section className="py-12">
@@ -165,20 +165,28 @@ export default function PopularCountries() {
         <SectionHeader
           title="Популярные страны"
           subtitle="Выбирайте страну для обучения из наших топовых направлений"
-          onPrev={() => scroll("left")}
-          onNext={() => scroll("right")}
+          onPrev={() => swiperInstance?.slidePrev()}
+          onNext={() => swiperInstance?.slideNext()}
         />
       </div>
 
-      <div
-        ref={scrollRef}
-        className="flex gap-5 overflow-x-auto px-6 lg:px-12 pb-4"
-        style={{ scrollbarWidth: "none" }}
+      <Swiper
+        modules={[Navigation, Autoplay, Mousewheel]}
+        onSwiper={setSwiperInstance}
+        loop={true}
+        autoplay={{ delay: 3000, disableOnInteraction: false, pauseOnMouseEnter: true }}
+        mousewheel={{ forceToAxis: true, sensitivity: 1 }}
+        slidesPerView="auto"
+        spaceBetween={20}
+        grabCursor={true}
+        className="!px-6 lg:!px-12 !pb-4"
       >
         {countries.map((c) => (
-          <CountryCard key={c.id} country={c} />
+          <SwiperSlide key={c.id} style={{ width: "auto" }}>
+            <CountryCard country={c} />
+          </SwiperSlide>
         ))}
-      </div>
+      </Swiper>
     </section>
   );
 }

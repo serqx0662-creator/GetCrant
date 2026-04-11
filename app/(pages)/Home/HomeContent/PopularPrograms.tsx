@@ -1,9 +1,13 @@
 "use client";
 
-import { useRef } from "react";
+import { useState } from "react";
 import { Clock, TrendingUp, Crown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Autoplay, Mousewheel } from "swiper/modules";
+import type { Swiper as SwiperType } from "swiper";
+import "swiper/css";
 import SectionHeader from "@/app/components/SectionHeader";
 
 // ─── Типы ────────────────────────────────────────────────────────────────────
@@ -111,12 +115,12 @@ function ProgramCard({ program }: { program: Program }) {
       href={program.href}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex-shrink-0 flex flex-col w-[300px] p-[10px] pb-[20px] gap-[10px] rounded-2xl border border-[#EAECF0] bg-white transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+      className="group flex flex-col w-[300px] p-[10px] pb-[20px] gap-[10px] rounded-2xl border border-[#EAECF0] bg-white transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
     >
       {/* Изображение */}
       <div className="relative w-full h-[160px] rounded-xl overflow-hidden bg-slate-200">
         {program.image ? (
-          <Image src={program.image} alt={program.title} fill className="object-cover" sizes="300px" />
+          <Image src={program.image} alt={program.title} fill className="object-cover scale-100 transition-transform duration-500 ease-out group-hover:scale-110" sizes="300px" />
         ) : (
           <div className="w-full h-full bg-slate-200" />
         )}
@@ -156,11 +160,7 @@ function ProgramCard({ program }: { program: Program }) {
 // ─── Секция ───────────────────────────────────────────────────────────────────
 
 export default function PopularPrograms() {
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  const scroll = (dir: "left" | "right") => {
-    scrollRef.current?.scrollBy({ left: dir === "left" ? -320 : 320, behavior: "smooth" });
-  };
+  const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
 
   return (
     <section className="py-12">
@@ -168,20 +168,28 @@ export default function PopularPrograms() {
         <SectionHeader
           title="Популярные программы"
           subtitle="Выбирайте из топовых образовательных программ мира"
-          onPrev={() => scroll("left")}
-          onNext={() => scroll("right")}
+          onPrev={() => swiperInstance?.slidePrev()}
+          onNext={() => swiperInstance?.slideNext()}
         />
       </div>
 
-      <div
-        ref={scrollRef}
-        className="flex gap-5 overflow-x-auto px-6 lg:px-12 pb-4"
-        style={{ scrollbarWidth: "none" }}
+      <Swiper
+        modules={[Navigation, Autoplay, Mousewheel]}
+        onSwiper={setSwiperInstance}
+        loop={true}
+        autoplay={{ delay: 3000, disableOnInteraction: false, pauseOnMouseEnter: true }}
+        mousewheel={{ forceToAxis: true, sensitivity: 1 }}
+        slidesPerView="auto"
+        spaceBetween={20}
+        grabCursor={true}
+        className="!px-6 lg:!px-12 !pb-4"
       >
         {programs.map((p) => (
-          <ProgramCard key={p.id} program={p} />
+          <SwiperSlide key={p.id} style={{ width: "auto" }}>
+            <ProgramCard program={p} />
+          </SwiperSlide>
         ))}
-      </div>
+      </Swiper>
     </section>
   );
 }
