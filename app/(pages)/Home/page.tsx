@@ -14,7 +14,7 @@ export default function Home() {
             <main className="pt-10">
                 <GetGrantHero />
                 <GetGrantExamGrid/>
-                <BentoGrid/>пше
+                <BentoGrid/>
                 <HomeContent />
             </main>
 

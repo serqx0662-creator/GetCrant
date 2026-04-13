@@ -23,10 +23,10 @@ export default function Header() {
     }, [isMobileMenuOpen]);
 
     const navLinks = [
-        { href: "/University", label: "Университеты", icon: <GraduationCap size={18} /> },
+        { href: "/Universities", label: "Университеты", icon: <GraduationCap size={18} /> },
         { href: "/Countries", label: "Страны", icon: <Globe size={18} /> },
         { href: "/Programs", label: "Программы", icon: <BookOpen size={18} /> },
-        { href: "/Preparation", label: "Онлайн-подготовка", icon: <Clock size={18} /> },
+        { href: "/OnlinePrep", label: "Онлайн-подготовка", icon: <Clock size={18} /> },
         { href: "/About", label: "О нас", icon: <Users size={18} /> },
     ];
 
