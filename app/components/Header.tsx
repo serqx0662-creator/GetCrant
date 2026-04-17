@@ -6,16 +6,24 @@ import { usePathname } from "next/navigation";
 import { Menu, X, GraduationCap, Globe, BookOpen, Clock, Users, LogIn } from "lucide-react";
 import { Button } from "./ui/button";
 import Image from "next/image";
+import ConsultationModal from "./ConsultationModal";
 
 export default function Header() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const pathname = usePathname();
 
     useEffect(() => {
         const handleScroll = () => setIsScrolled(window.scrollY > 20);
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
+    useEffect(() => {
+        const openModal = () => setIsModalOpen(true);
+        window.addEventListener("open-consultation-modal", openModal);
+        return () => window.removeEventListener("open-consultation-modal", openModal);
     }, []);
 
     useEffect(() => {
@@ -81,6 +89,7 @@ export default function Header() {
                     </Link>
 
                     <Button
+                        onClick={() => setIsModalOpen(true)}
                         className="hidden md:flex bg-blue-600 hover:bg-blue-700 text-white rounded-[8px] px-6 lg:px-8 py-6 text-sm lg:text-base shadow-lg shadow-blue-600/20 active:scale-95 transition-all"
                     >
                         Получить консультацию
@@ -136,7 +145,10 @@ export default function Header() {
 
                     {/* --- КНОПКИ В БУРГЕРЕ: Теперь они ЖЕСТКО скрыты на md+ --- */}
                     <div className="mt-auto pt-6 border-t border-gray-100 space-y-3 block md:hidden">
-                        <Button className="w-full bg-blue-600 py-7 text-white text-lg font-medium  rounded-2xl shadow-lg shadow-blue-600/20">
+                        <Button
+                            onClick={() => { setIsMobileMenuOpen(false); setIsModalOpen(true); }}
+                            className="w-full bg-blue-600 py-7 text-white text-lg font-medium  rounded-2xl shadow-lg shadow-blue-600/20"
+                        >
                             Получить консультацию
                         </Button>
                         <Link
@@ -149,6 +161,7 @@ export default function Header() {
                     </div>
                 </div>
             </div>
+        <ConsultationModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </>
     );
 }
