@@ -25,6 +25,7 @@ interface CountryData {
   name: string;
   description: string;
   heroImage: string;
+  bannerImage: string;
   flagImage: string;
   ctaTitle: string;
   advantages: Advantage[];
@@ -40,6 +41,7 @@ const usaData: CountryData = {
   name: "США",
   description: "США входит в число лидеров мирового образования с более чем 4000 университетами.",
   heroImage: "/image/HomeContent/Countries/Rectangle 1 (1).png",
+  bannerImage: "/image/Countries_id/США-v.png",
   flagImage: "/image/HomeContent/Countries/flag/usa-flag-1 1.png",
   ctaTitle: "Готовы начать обучение в США?",
   advantages: [
@@ -75,6 +77,7 @@ const canadaData: CountryData = {
   name: "Канада",
   description: "Высокое качество жизни и дружелюбная иммиграционная политика для студентов.",
   heroImage: "/image/HomeContent/Countries/Rectangle 1 (2).png",
+  bannerImage: "/image/Countries_id/canada-v.jpg",
   flagImage: "/image/HomeContent/Countries/flag/500px-Flag_of_Canada_(Pantone).svg.webp",
   ctaTitle: "Готовы начать обучение в Канаде?",
   advantages: [
@@ -109,6 +112,7 @@ const australiaData: CountryData = {
   name: "Австралия",
   description: "Уникальная природа, высокий уровень безопасности и дипломы, признанные во всем мире.",
   heroImage: "/image/HomeContent/Countries/Rectangle 1 (4).png",
+  bannerImage: "/image/Countries_id/Австралия-v.jpg",
   flagImage: "/image/HomeContent/Countries/flag/500px-Flag_of_Australia_(converted).svg.webp",
   ctaTitle: "Готовы начать обучение в Австралии?",
   advantages: [
@@ -143,6 +147,7 @@ const ukData: CountryData = {
   name: "Великобритания",
   description: "Вековые традиции образования, престижные дипломы Russell Group и насыщенная культурная жизнь.",
   heroImage: "/image/HomeContent/Countries/Rectangle 1 (3).png",
+  bannerImage: "/image/Countries_id/Великобритания-v.webp",
   flagImage: "/image/HomeContent/Countries/flag/500px-Flag_of_the_United_Kingdom_(1-2).svg.webp",
   ctaTitle: "Готовы начать обучение в Великобритании?",
   advantages: [
@@ -177,6 +182,7 @@ const germanyData: CountryData = {
   name: "Германия",
   description: "Бесплатное образование в государственных вузах, сильная инженерная школа и центр инноваций Европы.",
   heroImage: "/image/HomeContent/Countries/Германия.webp",
+  bannerImage: "/image/Countries_id/Германия-v.webp",
   flagImage: "/image/HomeContent/Countries/flag/500px-Flag_of_Germany.svg.webp",
   ctaTitle: "Готовы начать обучение в Германии?",
   advantages: [
@@ -264,7 +270,10 @@ function UniversityCard({ u }: { u: University }) {
 // ─── Основной компонент ───────────────────────────────────────────────────────
 
 export default function CountryContent({ id }: { id: string }) {
-  const country = countriesData[id] || countriesData["usa"];
+  console.log("Current ID:", id);
+
+  const country = countriesData[id.toLowerCase()];
+  if (!country) return <div className="min-h-screen flex items-center justify-center text-[#344054]">Страница не найдена для ID: {id}</div>;
 
   return (
     <div className="min-h-screen bg-white">
@@ -273,21 +282,15 @@ export default function CountryContent({ id }: { id: string }) {
       <main className="pt-[72px]">
 
         {/* ── Hero ── */}
-        <section className="relative w-full h-[420px] md:h-[500px]">
-          <Image src={country.heroImage} alt={country.name} fill className="object-cover" priority />
-          <div className="absolute inset-0 bg-black/40" />
-          <div className="absolute bottom-8 left-6 lg:left-12 bg-white rounded-[16px] shadow-xl p-4 flex items-center gap-4 max-w-[420px]">
-            <div className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0 border-2 border-[#EAECF0]">
-              <Image src={country.flagImage} alt={`Флаг ${country.name}`} fill className="object-cover" sizes="48px" />
+        <section className="relative w-full h-[450px] overflow-hidden mb-16">
+          <Image src={country.bannerImage} alt={country.name} fill className="w-full h-full object-cover object-center" priority />
+          <div className="absolute bottom-6 left-6 bg-white rounded-xl shadow-md px-5 py-3 flex flex-row items-center gap-3 w-[480px]">
+            <div className="relative w-10 h-10 rounded-full overflow-hidden flex-shrink-0 border-2 border-[#EAECF0]">
+              <Image src={country.flagImage} alt={`Флаг ${country.name}`} fill className="object-cover" sizes="40px" />
             </div>
-            <div>
-              <p className="text-base font-bold text-[#101828]">{country.name}</p>
-              <p className="text-xs text-[#667085] leading-relaxed mt-0.5">
-                {country.description}{" "}
-                <button onClick={openModal} className="text-[#1570EF] hover:underline">
-                  Получить консультацию →
-                </button>
-              </p>
+            <div className="flex flex-col">
+              <p className="text-[16px] font-bold text-[#101828] leading-tight">{country.name}</p>
+              <p className="text-[#667085] text-[13px] leading-snug">{country.description}</p>
             </div>
           </div>
         </section>

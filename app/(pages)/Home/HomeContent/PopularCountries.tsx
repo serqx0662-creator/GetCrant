@@ -34,7 +34,7 @@ const countries: Country[] = [
     programs: "2,500+", students: "200+",
     benefits: ["Топ университеты мира", "ОРТ — работа после учёбы", "Стипендии и гранты"],
     image: "/image/HomeContent/Countries/Rectangle 1 (1).png",
-    href: "https://ru.wikipedia.org/wiki/США",
+    href: "/Countries/usa",
   },
   {
     id: 2, name: "Канада", nameEn: "Canada", flag: "🇨🇦",
@@ -42,7 +42,7 @@ const countries: Country[] = [
     programs: "1,000+", students: "150+",
     benefits: ["Высокое качество образования", "Работа для студентов", "Множество стипендий"],
     image: "/image/HomeContent/Countries/Rectangle 1 (2).png",
-    href: "https://ru.wikipedia.org/wiki/Канада",
+    href: "/Countries/canada",
   },
   {
     id: 3, name: "Великобритания", nameEn: "United Kingdom", flag: "🇬🇧",
@@ -50,7 +50,7 @@ const countries: Country[] = [
     programs: "1,300+", students: "170+",
     benefits: ["Классическое образование", "Визовые возможности", "Государственные и частные гранты"],
     image: "/image/HomeContent/Countries/Rectangle 1 (3).png",
-    href: "https://ru.wikipedia.org/wiki/Великобритания",
+    href: "/Countries/uk",
   },
   {
     id: 4, name: "Австралия", nameEn: "Australia", flag: "🇦🇺",
@@ -58,7 +58,7 @@ const countries: Country[] = [
     programs: "1,200+", students: "100+",
     benefits: ["Многокультурная среда", "Гибкие учебные курсы", "Стипендии от университетов"],
     image: "/image/HomeContent/Countries/Rectangle 1 (4).png",
-    href: "https://ru.wikipedia.org/wiki/Австралия",
+    href: "/Countries/australia",
   },
   {
     id: 5, name: "Новая Зеландия", nameEn: "New Zealand", flag: "🇳🇿",
@@ -74,7 +74,7 @@ const countries: Country[] = [
     programs: "1,800+", students: "350+",
     benefits: ["Бесплатное образование", "Право на работу", "Сильная инженерная школа"],
     image: "/image/HomeContent/Countries/Германия.webp",
-    href: "https://ru.wikipedia.org/wiki/Германия",
+    href: "/Countries/germany",
   },
   {
     id: 7, name: "Нидерланды", nameEn: "Netherlands", flag: "🇳🇱",
@@ -100,8 +100,7 @@ function CountryCard({ country }: { country: Country }) {
   return (
     <Link
       href={country.href}
-      target="_blank"
-      rel="noopener noreferrer"
+      {...(country.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       className="group flex flex-col w-[300px] p-[10px] pb-[20px] gap-[10px] rounded-2xl border border-[#EAECF0] bg-white transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
     >
       {/* Изображение с оверлеем */}

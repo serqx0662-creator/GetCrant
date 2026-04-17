@@ -115,7 +115,7 @@ function CountryCard({ country }: { country: Country }) {
 
       {/* Кнопка */}
       <Link
-        href={`/Countries/${country.id}`}
+        href={country.href}
         className="mt-auto mx-1 flex items-center justify-center h-9 rounded-[8px] border border-[#1570EF] text-[#1570EF] text-xs font-semibold bg-transparent hover:bg-[#1570EF] hover:text-white transition-colors duration-200"
       >
         Подробнее о стране
