@@ -1,9 +1,15 @@
+import Header from "@/app/components/Header";
+import Footer from "@/app/components/Footer";
+import ProgramsCatalogLayout from "./components/ProgramsCatalogLayout";
+
 export default function ProgramsPage() {
-  return (
-    <main className="min-h-screen pt-24 pb-10">
-      <div className="container mx-auto px-4">
-        <h1 className="text-4xl font-bold">Программы</h1>
-      </div>
-    </main>
-  );
+    return (
+        <div className="min-h-screen bg-white">
+            <Header />
+            <main className="pt-20">
+                <ProgramsCatalogLayout />
+            </main>
+            <Footer />
+        </div>
+    );
 }
