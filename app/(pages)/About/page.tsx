@@ -1,14 +1,25 @@
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
+import AboutHero from "./components/AboutHero";
+import AboutStats from "./components/AboutStats";
+import AboutMission from "./components/AboutMission";
+import AboutValues from "./components/AboutValues";
+import AboutHistory from "./components/AboutHistory";
+import AboutTeam from "./components/AboutTeam";
+import AboutLicenses from "./components/AboutLicenses";
 
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      <main className="pt-24 pb-16">
-        <div className="container mx-auto px-6 lg:px-12">
-          <h1 className="text-4xl font-bold text-[#101828]">О нас</h1>
-        </div>
+      <main className="pt-[72px]">
+        <AboutHero />
+        <AboutStats />
+        <AboutMission />
+        <AboutValues />
+        <AboutHistory />
+        <AboutTeam />
+        <AboutLicenses />
       </main>
       <Footer />
     </div>

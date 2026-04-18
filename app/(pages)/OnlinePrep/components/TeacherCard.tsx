@@ -30,16 +30,12 @@ export default function TeacherCard({ teacher }: { teacher: Teacher }) {
     >
       {/* Аватар + имя/специализация */}
       <div className="flex items-start gap-3 w-full">
-        <img 
+        <img
           src={teacher.avatar}
           alt={teacher.name}
-          style={{ 
-            width: "80px", 
-            height: "80px", 
-            flexShrink: 0,
-            objectFit: "cover"
-          }} 
-          className="rounded-xl"
+          style={{ width: "80px", height: "80px", flexShrink: 0, objectFit: "cover" }}
+          className="rounded-xl bg-gray-100"
+          onError={(e) => { (e.target as HTMLImageElement).style.visibility = "hidden"; }}
         />
         <div className="flex flex-col justify-center gap-0.5 min-h-[80px]">
           <p className="text-[18px] font-bold text-gray-900 leading-tight">{teacher.name}</p>
