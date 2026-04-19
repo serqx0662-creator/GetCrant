@@ -3,6 +3,17 @@ import Footer from "@/app/components/Footer";
 import ProgramsCatalogLayout from "./components/ProgramsCatalogLayout";
 
 export default function ProgramsPage() {
+  return (
+    <div className="min-h-screen bg-white">
+      <Header />
+      <main className="pt-24 pb-16">
+        <div className="container mx-auto px-6 lg:px-12">
+          <h1 className="text-4xl font-bold text-[#101828]">Программы</h1>
+        </div>
+      </main>
+      <Footer />
+    </div>
+  );
     return (
         <div className="min-h-screen bg-white">
             <Header />

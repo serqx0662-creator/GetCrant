@@ -4,7 +4,7 @@ import { useState } from "react";
 import { BookOpen, Users, MapPin } from "lucide-react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay, Mousewheel } from "swiper/modules";
+import { Navigation, Mousewheel } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import SectionHeader from "@/app/components/SectionHeader";
@@ -105,10 +105,9 @@ export default function PartnerUniversities() {
       </div>
 
       <Swiper
-        modules={[Navigation, Autoplay, Mousewheel]}
+        modules={[Navigation, Mousewheel]}
         onSwiper={setSwiperInstance}
         loop={true}
-        autoplay={{ delay: 3000, disableOnInteraction: false, pauseOnMouseEnter: true }}
         mousewheel={{ forceToAxis: true, sensitivity: 1 }}
         slidesPerView="auto"
         spaceBetween={20}

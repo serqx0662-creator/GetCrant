@@ -4,6 +4,11 @@ import Image from "next/image";
 import { Star, Target, Zap, Clock3, ArrowRight } from "lucide-react";
 import { Button } from "@/app/components/ui/button";
 
+// Открывает модалку консультации через кастомный событие
+function openConsultationModal() {
+  window.dispatchEvent(new CustomEvent("open-consultation-modal"));
+}
+
 export default function GetGrantHero() {
     const stats = [
         { value: "500+", label: "Поступивших студентов" },
@@ -42,7 +47,12 @@ export default function GetGrantHero() {
                         </div>
 
                         <div className="flex flex-wrap gap-4 pt-4">
-
+                            <Button
+                                onClick={openConsultationModal}
+                                className="bg-blue-600 hover:bg-blue-700 text-white px-10 py-7 rounded-xl font-bold text-lg shadow-lg shadow-blue-600/20 transition-all active:scale-95"
+                            >
+                                Получить консультацию
+                            </Button>
                             <Button variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50 px-10 py-7 rounded-xl font-bold text-lg transition-all active:scale-95">
                                 Начать подготовку
                                 <ArrowRight className="ml-2 w-5 h-5" />
