@@ -81,7 +81,7 @@ export default function Header() {
                 <div className="flex items-center gap-2 md:gap-3">
                     {/* Видны на Планшетах и Десктопах (md+) */}
                     <Link
-                        href="/login"
+                        href="/auth"
                         className="hidden md:flex items-center gap-2 text-gray-600 font-medium hover:text-blue-600 px-4 py-3 transition-colors group/login"
                     >
                         <LogIn size={20} className="group-hover/login:-translate-x-1 transition-transform" />
@@ -152,7 +152,7 @@ export default function Header() {
                             Получить консультацию
                         </Button>
                         <Link
-                            href="/login"
+                            href="/auth"
                             onClick={() => setIsMobileMenuOpen(false)}
                             className="flex items-center justify-center gap-2 w-full py-4 font-medium text-gray-600 bg-gray-50 rounded-2xl border border-gray-100"
                         >

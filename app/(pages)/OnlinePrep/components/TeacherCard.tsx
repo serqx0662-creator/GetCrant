@@ -1,9 +1,5 @@
 "use client";
 
-function openModal() {
-  window.dispatchEvent(new CustomEvent("open-consultation-modal"));
-}
-
 export interface Teacher {
   id: number;
   name: string;
@@ -14,7 +10,12 @@ export interface Teacher {
   avatar: string;
 }
 
-export default function TeacherCard({ teacher }: { teacher: Teacher }) {
+interface TeacherCardProps {
+  teacher: Teacher;
+  onEnroll: (teacher: Teacher) => void;
+}
+
+export default function TeacherCard({ teacher, onEnroll }: TeacherCardProps) {
   return (
     <div
       style={{
@@ -30,13 +31,14 @@ export default function TeacherCard({ teacher }: { teacher: Teacher }) {
     >
       {/* Аватар + имя/специализация */}
       <div className="flex items-start gap-3 w-full">
-        <img
-          src={teacher.avatar}
-          alt={teacher.name}
-          style={{ width: "80px", height: "80px", flexShrink: 0, objectFit: "cover" }}
-          className="rounded-xl bg-gray-100"
-          onError={(e) => { (e.target as HTMLImageElement).style.visibility = "hidden"; }}
-        />
+        <div className="w-[80px] h-[80px] flex-shrink-0 rounded-xl overflow-hidden bg-gray-100">
+          <img
+            src={teacher.avatar}
+            alt={teacher.name}
+            className="w-full h-full object-cover"
+            onError={(e) => { (e.target as HTMLImageElement).style.visibility = "hidden"; }}
+          />
+        </div>
         <div className="flex flex-col justify-center gap-0.5 min-h-[80px]">
           <p className="text-[18px] font-bold text-gray-900 leading-tight">{teacher.name}</p>
           <p className="text-[14px] text-gray-500">{teacher.subject}</p>
@@ -60,7 +62,7 @@ export default function TeacherCard({ teacher }: { teacher: Teacher }) {
       </div>
 
       <button
-        onClick={openModal}
+        onClick={() => onEnroll(teacher)}
         className="w-full py-2 rounded-lg border border-[#0047FF] text-[#0047FF] text-xs font-semibold hover:bg-[#0047FF] hover:text-white transition-colors"
       >
         Записаться
