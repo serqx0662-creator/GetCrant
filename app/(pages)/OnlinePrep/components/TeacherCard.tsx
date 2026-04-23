@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 export interface Teacher {
   id: number;
   name: string;
@@ -31,16 +33,16 @@ export default function TeacherCard({ teacher, onEnroll }: TeacherCardProps) {
     >
       {/* Аватар + имя/специализация */}
       <div className="flex items-start gap-3 w-full">
-        <div className="w-[80px] h-[80px] flex-shrink-0 rounded-xl overflow-hidden bg-gray-100">
-          <img
+        <div className="w-20 h-20 shrink-0 rounded-xl overflow-hidden bg-gray-100">
+          <Image
             src={teacher.avatar}
             alt={teacher.name}
+            width={80}
+            height={80}
             className="w-full h-full object-cover"
-            onError={(e) => { (e.target as HTMLImageElement).style.visibility = "hidden"; }}
           />
         </div>
-        <div className="flex flex-col justify-center gap-0.5 min-h-[80px]">
-          <p className="text-[18px] font-bold text-gray-900 leading-tight">{teacher.name}</p>
+        <div className="flex flex-col justify-center gap-0.5 min-h-20"><p className="text-[18px] font-bold text-gray-900 leading-tight">{teacher.name}</p>
           <p className="text-[14px] text-gray-500">{teacher.subject}</p>
         </div>
       </div>

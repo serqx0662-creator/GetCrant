@@ -25,7 +25,7 @@ export default function CountryCard({ country }: { country: Country }) {
 
       <div className="flex items-center gap-3 bg-[#F9FAFB] rounded-[8px] p-3">
         {country.flagImage ? (
-          <div className="relative w-6 h-4 flex-shrink-0 rounded-[2px] overflow-hidden">
+          <div className="relative w-6 h-4 shrink-0 rounded-[2px] overflow-hidden">
             <Image src={country.flagImage} alt={`Флаг ${country.name}`} fill className="object-cover" sizes="24px" />
           </div>
         ) : (

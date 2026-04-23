@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 const BENEFITS = [
     {
@@ -81,9 +82,11 @@ const WhyGetGrant = () => {
 
                         {item.image && (
                             <div className={`absolute pointer-events-none transition-all duration-700 ease-out md:group-hover:scale-105 ${item.imgClass}`}>
-                                <img
+                                <Image
                                     src={item.image}
                                     alt={item.title}
+                                    width={400}
+                                    height={400}
                                     className="w-full h-full object-contain object-right-bottom"
                                 />
                             </div>

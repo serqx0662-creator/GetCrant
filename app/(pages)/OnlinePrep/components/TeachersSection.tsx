@@ -44,7 +44,7 @@ export default function TeachersSection() {
           slidesPerView="auto"
           spaceBetween={20}
           grabCursor={true}
-          className="!px-6 lg:!px-12 !pb-4"
+          className="px-6! lg:px-12! pb-4!"
           breakpoints={{
             320:  { slidesPerView: 1, spaceBetween: 15 },
             640:  { slidesPerView: 2, spaceBetween: 20 },

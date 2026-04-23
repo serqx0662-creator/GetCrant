@@ -14,10 +14,10 @@ const courses: (CourseInfo & { id: number; lessons: number; students: number })[
 function CourseCard({ course, onEnroll }: { course: typeof courses[0]; onEnroll: (c: CourseInfo) => void }) {
   return (
     <div style={{ width: "305.75px", padding: "20px", borderRadius: "16px", border: "1px solid #EAECF0", background: "#FFF", display: "flex", flexDirection: "column", gap: "10px" }}>
-      <div className="w-8 h-8 rounded-lg bg-[#0047FF] flex items-center justify-center flex-shrink-0">
+      <div className="w-8 h-8 rounded-lg bg-[#0047FF] flex items-center justify-center shrink-0">
         <GraduationCap size={18} className="text-white" />
       </div>
-      <div className="min-h-[52px]">
+      <div className="min-h-13">
         <p className="text-sm font-bold text-[#101828]">{course.title}</p>
         <p className="text-xs text-[#667085] mt-1 leading-relaxed">{course.description}</p>
       </div>

@@ -1,8 +1,5 @@
-"use client";
-
 import Image from "next/image";
 import { CheckCircle2 } from "lucide-react";
-import { motion } from "framer-motion";
 
 const checkItems = [
   "Персональный менеджер для каждого студента",
@@ -17,14 +14,7 @@ export default function AboutMission() {
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
 
-          {/* Левая колонка */}
-          <motion.div
-            className="flex flex-col gap-6"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
+          <div className="flex flex-col gap-6">
             <h2 className="text-3xl font-bold text-slate-900">Наша миссия</h2>
             <p className="text-slate-600 leading-relaxed">
               Мы верим, что качественное зарубежное образование доступно каждому способному студенту из Центральной Азии — нужно только знать как.
@@ -35,21 +25,14 @@ export default function AboutMission() {
             <div className="bg-blue-50/50 rounded-2xl p-6 flex flex-col gap-3">
               {checkItems.map((item) => (
                 <div key={item} className="flex items-center gap-3">
-                  <CheckCircle2 size={18} className="text-blue-600 flex-shrink-0" />
+                  <CheckCircle2 size={18} className="text-blue-600 shrink-0" />
                   <span className="text-sm text-slate-700">{item}</span>
                 </div>
               ))}
             </div>
-          </motion.div>
+          </div>
 
-          {/* Правая колонка — фото */}
-          <motion.div
-            className="relative w-full h-[400px] rounded-[40px] overflow-hidden"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-          >
+          <div className="relative w-full h-100 rounded-[40px] overflow-hidden">
             <Image
               src="/image/hero-students.jpg"
               alt="Команда GetGrant"
@@ -57,7 +40,7 @@ export default function AboutMission() {
               className="object-cover"
               sizes="(max-width: 1024px) 100vw, 50vw"
             />
-          </motion.div>
+          </div>
 
         </div>
       </div>

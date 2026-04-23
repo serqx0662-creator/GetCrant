@@ -72,7 +72,7 @@ function UniversityCard({ university }: { university: University }) {
 
         {/* Местоположение — кликабельная ссылка на Google Maps */}
         <div className="flex items-center gap-1 text-xs text-[#1D2939]">
-          <MapPin size={12} className="text-[#1D2939] flex-shrink-0" />
+          <MapPin size={12} className="text-[#1D2939] shrink-0" />
           <a
             href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(university.location)}`}
             target="_blank"

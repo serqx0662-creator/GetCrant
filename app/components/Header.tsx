@@ -46,7 +46,7 @@ export default function Header() {
                     : "bg-transparent py-6 border-transparent"
             }`}>
 
-                <Link href="/Home" className="relative block h-10 w-[140px] hover:opacity-80 transition-opacity">
+                <Link href="/Home" className="relative block h-10 w-35 hover:opacity-80 transition-opacity">
                     <Image
                         src="/logo/logo.svg"
                         alt="GetGrant"
@@ -70,7 +70,7 @@ export default function Header() {
                             >
                                 {link.label}
 
-                                <span className={`absolute bottom-0 left-0 h-[2px] bg-blue-600 transition-all duration-300 ease-out ${
+                                <span className={`absolute bottom-0 left-0 h-0.5 bg-blue-600 transition-all duration-300 ease-out ${
                                     isActive ? "w-full" : "w-0 group-hover/link:w-full"
                                 }`}></span>
                             </Link>
@@ -106,7 +106,7 @@ export default function Header() {
             </header>
 
             {/* Мобильное меню */}
-            <div className={`fixed inset-0 z-[100] transition-all duration-500 ${isMobileMenuOpen ? "visible" : "invisible"}`}>
+            <div className={`fixed inset-0 z-100 transition-all duration-500 ${isMobileMenuOpen ? "visible" : "invisible"}`}>
                 <div
                     className={`absolute inset-0 bg-gray-950/20 backdrop-blur-sm transition-opacity duration-500 ${isMobileMenuOpen ? "opacity-100" : "opacity-0"}`}
                     onClick={() => setIsMobileMenuOpen(false)}
@@ -122,7 +122,7 @@ export default function Header() {
                         </button>
                     </div>
 
-                    <nav className="flex flex-col gap-4 flex-grow overflow-y-auto">
+                    <nav className="flex flex-col gap-4 grow overflow-y-auto">
                         {navLinks.map((link, idx) => (
                             <Link
                                 key={link.href}
@@ -144,7 +144,7 @@ export default function Header() {
                     </nav>
 
                     {/* --- КНОПКИ В БУРГЕРЕ: Теперь они ЖЕСТКО скрыты на md+ --- */}
-                    <div className="mt-auto pt-6 border-t border-gray-100 space-y-3 block md:hidden">
+                    <div className="mt-auto pt-6 border-t border-gray-100 space-y-3 md:hidden">
                         <Button
                             onClick={() => { setIsMobileMenuOpen(false); setIsModalOpen(true); }}
                             className="w-full bg-blue-600 py-7 text-white text-lg font-medium  rounded-2xl shadow-lg shadow-blue-600/20"

@@ -32,7 +32,7 @@ export default function AboutLicenses() {
               viewport={{ once: true }}
               transition={{ duration: 0.35, delay: i * 0.08 }}
             >
-              <div className="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center flex-shrink-0">
+              <div className="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center shrink-0">
                 <FileText size={18} className="text-white" />
               </div>
               <div>

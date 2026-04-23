@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Star, Target, Zap, Clock3, ArrowRight } from "lucide-react";
+import { Star, Clock3, ArrowRight } from "lucide-react";
 import { Button } from "@/app/components/ui/button";
 
 // Открывает модалку консультации через кастомный событие
@@ -74,7 +74,7 @@ export default function GetGrantHero() {
                     </div>
 
                     <div className="relative group">
-                        <div className="relative w-full aspect-[4/4.5] rounded-[48px] overflow-hidden shadow-2xl shadow-blue-900/10">
+                        <div className="relative w-full aspect-4/4.5 rounded-[48px] overflow-hidden shadow-2xl shadow-blue-900/10">
                             <Image
                                 src="/image/hero-students.jpg"
                                 alt="Students in University"
@@ -83,7 +83,7 @@ export default function GetGrantHero() {
                                 priority
                             />
 
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60"></div>
+                            <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent opacity-60"></div>
 
                             <div className="absolute bottom-6 left-6 right-6 p-5 rounded-[32px] bg-white/90 backdrop-blur-md border border-white/50 shadow-2xl flex items-center gap-4 translate-y-0 group-hover:-translate-y-2 transition-transform duration-500">
                                 <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white shadow-lg shadow-blue-600/30">

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { X, GraduationCap, Star, FileText } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { Teacher } from "./TeacherCard";
@@ -48,7 +49,7 @@ export default function TeacherModal({ teacher, onClose }: TeacherModalProps) {
             exit={{ opacity: 0 }}
           >
             <motion.div
-              className="bg-white rounded-2xl shadow-2xl w-full max-w-[520px] my-auto"
+              className="bg-white rounded-2xl shadow-2xl w-full max-w-130 my-auto"
               initial={{ scale: 0.95, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 20 }}
@@ -58,11 +59,12 @@ export default function TeacherModal({ teacher, onClose }: TeacherModalProps) {
               {/* Header */}
               <div className="flex items-start justify-between p-6 pb-4">
                 <div className="flex items-center gap-3">
-                  <img
+                  <Image
                     src={teacher.avatar}
                     alt={teacher.name}
-                    className="w-12 h-12 rounded-xl object-cover bg-gray-200 flex-shrink-0"
-                    onError={(e) => { (e.target as HTMLImageElement).style.visibility = "hidden"; }}
+                    width={48}
+                    height={48}
+                    className="w-12 h-12 rounded-xl object-cover bg-gray-200 shrink-0"
                   />
                   <div>
                     <p className="text-[10px] text-[#667085] mb-0.5">Записаться к преподавателю</p>
@@ -72,7 +74,7 @@ export default function TeacherModal({ teacher, onClose }: TeacherModalProps) {
                 </div>
                 <button
                   onClick={onClose}
-                  className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors flex-shrink-0 ml-4"
+                  className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors shrink-0 ml-4"
                 >
                   <X size={16} className="text-[#667085]" />
                 </button>
@@ -82,21 +84,21 @@ export default function TeacherModal({ teacher, onClose }: TeacherModalProps) {
                 {/* Инфо-блоки */}
                 <div className="grid grid-cols-3 gap-2">
                   <div className="flex items-center gap-2 bg-[#F2F4F7] rounded-xl px-3 py-2.5">
-                    <GraduationCap size={14} className="text-[#0047FF] flex-shrink-0" />
+                    <GraduationCap size={14} className="text-[#0047FF] shrink-0" />
                     <div>
                       <p className="text-[9px] text-[#667085]">Специализация</p>
                       <p className="text-[10px] font-bold text-[#0047FF] leading-tight">{teacher.subject}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 bg-[#F2F4F7] rounded-xl px-3 py-2.5">
-                    <Star size={14} className="text-[#0047FF] flex-shrink-0" />
+                    <Star size={14} className="text-[#0047FF] shrink-0" />
                     <div>
                       <p className="text-[9px] text-[#667085]">Опыт работы</p>
                       <p className="text-[10px] font-bold text-[#0047FF] leading-tight">{teacher.exp}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 bg-[#F2F4F7] rounded-xl px-3 py-2.5">
-                    <FileText size={14} className="text-[#0047FF] flex-shrink-0" />
+                    <FileText size={14} className="text-[#0047FF] shrink-0" />
                     <div>
                       <p className="text-[9px] text-[#667085]">Сертификаты</p>
                       <p className="text-[10px] font-bold text-[#0047FF] leading-tight">{teacher.cert}</p>
@@ -118,7 +120,7 @@ export default function TeacherModal({ teacher, onClose }: TeacherModalProps) {
                       }`}
                     >
                       <div className="flex items-center gap-2 w-full">
-                        <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
+                        <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 ${
                           format === "individual" ? "border-[#0047FF]" : "border-gray-300"
                         }`}>
                           {format === "individual" && <div className="w-2 h-2 rounded-full bg-[#0047FF]" />}
@@ -139,7 +141,7 @@ export default function TeacherModal({ teacher, onClose }: TeacherModalProps) {
                       }`}
                     >
                       <div className="flex items-center gap-2 w-full">
-                        <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
+                        <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 ${
                           format === "trial" ? "border-[#0047FF]" : "border-gray-300"
                         }`}>
                           {format === "trial" && <div className="w-2 h-2 rounded-full bg-[#0047FF]" />}
@@ -208,7 +210,7 @@ export default function TeacherModal({ teacher, onClose }: TeacherModalProps) {
                     type="checkbox"
                     checked={agreed}
                     onChange={(e) => setAgreed(e.target.checked)}
-                    className="w-4 h-4 mt-0.5 accent-[#0047FF] flex-shrink-0"
+                    className="w-4 h-4 mt-0.5 accent-[#0047FF] shrink-0"
                   />
                   <span className="text-xs text-[#667085]">
                     Я согласен с условиями{" "}

@@ -4,7 +4,6 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Eye, EyeOff, GraduationCap, FileText, Globe, ArrowLeft } from "lucide-react";
-import Header from "@/app/components/Header";
 
 // ─── Данные правой панели ─────────────────────────────────────────────────────
 
@@ -179,7 +178,7 @@ export default function AuthPage() {
         <div className="w-full max-w-[900px] bg-white rounded-[24px] shadow-lg overflow-hidden flex h-[580px]">
 
           {/* Левая панель — форма */}
-          <div className="w-full md:w-[420px] flex-shrink-0 flex flex-col px-8 py-6 overflow-y-auto">
+          <div className="w-full md:w-[420px] shrink-0 flex flex-col px-8 py-6 overflow-y-auto">
 
             {/* Табы */}
             <div className="flex border-b border-[#EAECF0] mb-5">
@@ -230,7 +229,7 @@ export default function AuthPage() {
             <div className="absolute z-10 bottom-0 left-0 right-0 p-8 flex flex-col gap-3">
               {features.map((f) => (
                 <div key={f.title} className="flex items-start gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
+                  <div className="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center shrink-0">
                     {f.icon}
                   </div>
                   <div>

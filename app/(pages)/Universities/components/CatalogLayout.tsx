@@ -1,10 +1,11 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { SlidersHorizontal } from "lucide-react";
 import FilterSidebar, { type Filters } from "./FilterSidebar";
 import UniversityGrid from "./UniversityGrid";
 import { mockUniversities } from "../data/mockUniversities";
+import MobileFilterToggle from "@/app/components/MobileFilterToggle";
+import { usePaginatedList } from "@/app/hooks/usePaginatedList";
 
 const DEFAULT_FILTERS: Filters = {
     search: "",
@@ -13,46 +14,27 @@ const DEFAULT_FILTERS: Filters = {
     maxCost: 100000,
 };
 
-const PAGE_SIZE = 6;
-
 export default function CatalogLayout() {
     const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS);
-    const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
     const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
 
     const filtered = useMemo(() => {
         return mockUniversities.filter((u) => {
-            if (
-                filters.search &&
-                !u.name.toLowerCase().includes(filters.search.toLowerCase())
-            )
+            if (filters.search && !u.name.toLowerCase().includes(filters.search.toLowerCase()))
                 return false;
-            if (
-                filters.countries.length &&
-                !filters.countries.includes(u.location.country)
-            )
+            if (filters.countries.length && !filters.countries.includes(u.location.country))
                 return false;
             if (filters.types.length && !filters.types.includes(u.type))
                 return false;
-            if (u.cost > filters.maxCost) return false;
-            return true;
+            return u.cost <= filters.maxCost;
         });
     }, [filters]);
 
-    const visible = filtered.slice(0, visibleCount);
-    const hasMore = visibleCount < filtered.length;
-    // Свернуть доступно если показано больше одной страницы
-    const canCollapse = visibleCount > PAGE_SIZE;
+    const { visible, hasMore, canCollapse, showMore, collapse, reset } = usePaginatedList(filtered);
 
     const handleReset = () => {
         setFilters(DEFAULT_FILTERS);
-        setVisibleCount(PAGE_SIZE);
-    };
-
-    const handleCollapse = () => {
-        setVisibleCount(PAGE_SIZE);
-        // Плавно скроллим наверх к сетке
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        reset();
     };
 
     const hasActiveFilters =
@@ -63,56 +45,30 @@ export default function CatalogLayout() {
 
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-10">
-            {/* Page header */}
             <div className="mb-8">
-                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
-                    Каталог университетов
-                </h1>
-                <p className="text-sm text-gray-400 mt-1">
-                    Найдено {filtered.length} университетов
-                </p>
+                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Каталог университетов</h1>
+                <p className="text-sm text-gray-400 mt-1">Найдено {filtered.length} университетов</p>
             </div>
 
-            {/* Mobile filter toggle */}
-            <div className="xl:hidden mb-4">
-                <button
-                    onClick={() => setMobileFilterOpen((v) => !v)}
-                    className="flex items-center gap-2 text-sm font-medium text-blue-600 border border-blue-200 bg-blue-50 px-4 py-2.5 rounded-lg hover:bg-blue-100 transition-colors"
-                >
-                    <SlidersHorizontal size={16} />
-                    {mobileFilterOpen ? "Скрыть фильтры" : "Показать фильтры"}
-                    {hasActiveFilters && (
-                        <span className="ml-1 bg-blue-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-              !
-            </span>
-                    )}
-                </button>
-            </div>
+            <MobileFilterToggle
+                isOpen={mobileFilterOpen}
+                hasActive={hasActiveFilters}
+                onToggle={() => setMobileFilterOpen((v) => !v)}
+            />
 
-            {/* Layout */}
             <div className="flex flex-col xl:flex-row gap-6 items-start">
-                {/* Sidebar — sticky при скролле */}
-                <div
-                    className={`w-full xl:w-80 shrink-0 xl:sticky xl:top-24 ${
-                        mobileFilterOpen ? "block" : "hidden xl:block"
-                    }`}
-                >
+                <div className={`w-full xl:w-80 shrink-0 xl:sticky xl:top-24 ${mobileFilterOpen ? "block" : "hidden xl:block"}`}>
                     <FilterSidebar
                         filters={filters}
-                        onChange={(f) => {
-                            setFilters(f);
-                            setVisibleCount(PAGE_SIZE);
-                        }}
+                        onChange={(f) => { setFilters(f); reset(); }}
                         onReset={handleReset}
                     />
                 </div>
-
-                {/* Grid */}
                 <UniversityGrid
                     universities={visible}
                     total={filtered.length}
-                    onShowMore={() => setVisibleCount((c) => c + PAGE_SIZE)}
-                    onCollapse={handleCollapse}
+                    onShowMore={showMore}
+                    onCollapse={collapse}
                     hasMore={hasMore}
                     canCollapse={canCollapse}
                 />

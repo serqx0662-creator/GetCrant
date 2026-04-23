@@ -67,7 +67,7 @@ export default function CourseModal({ course, onClose }: CourseModalProps) {
             exit={{ opacity: 0 }}
           >
             <motion.div
-              className="bg-white rounded-2xl shadow-2xl w-full max-w-[480px] overflow-hidden"
+              className="bg-white rounded-2xl shadow-2xl w-full max-w-120 overflow-hidden"
               initial={{ scale: 0.95, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 20 }}
@@ -83,7 +83,7 @@ export default function CourseModal({ course, onClose }: CourseModalProps) {
                 </div>
                 <button
                   onClick={onClose}
-                  className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors flex-shrink-0 ml-4"
+                  className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors shrink-0 ml-4"
                 >
                   <X size={16} className="text-[#667085]" />
                 </button>
@@ -93,14 +93,14 @@ export default function CourseModal({ course, onClose }: CourseModalProps) {
                 {/* Инфо-блоки */}
                 <div className="grid grid-cols-2 gap-3">
                   <div className="flex items-center gap-2 bg-[#F2F4F7] rounded-xl px-4 py-3">
-                    <Calendar size={16} className="text-[#0047FF] flex-shrink-0" />
+                    <Calendar size={16} className="text-[#0047FF] shrink-0" />
                     <div>
                       <p className="text-[10px] text-[#667085]">Длительность</p>
                       <p className="text-xs font-bold text-[#0047FF]">{course.duration}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 bg-[#F2F4F7] rounded-xl px-4 py-3">
-                    <Users size={16} className="text-[#0047FF] flex-shrink-0" />
+                    <Users size={16} className="text-[#0047FF] shrink-0" />
                     <div>
                       <p className="text-[10px] text-[#667085]">Формат обучения</p>
                       <p className="text-xs font-bold text-[#0047FF]">Онлайн</p>
@@ -168,7 +168,7 @@ export default function CourseModal({ course, onClose }: CourseModalProps) {
                     type="checkbox"
                     checked={agreed}
                     onChange={(e) => setAgreed(e.target.checked)}
-                    className="w-4 h-4 mt-0.5 accent-[#0047FF] flex-shrink-0"
+                    className="w-4 h-4 mt-0.5 accent-[#0047FF] shrink-0"
                   />
                   <span className="text-xs text-[#667085]">
                     Я согласен с условиями{" "}

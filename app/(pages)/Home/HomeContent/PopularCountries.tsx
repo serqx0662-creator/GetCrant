@@ -115,7 +115,7 @@ function CountryCard({ country }: { country: Country }) {
         {/* Плашка с флагом */}
         <div className="absolute bottom-3 left-3 flex items-center gap-2 bg-[#101828]/90 rounded-lg px-3 py-2 z-10">
           {country.flagImage ? (
-            <div className="relative w-5 h-3.5 flex-shrink-0 rounded-[2px] overflow-hidden">
+            <div className="relative w-5 h-3.5 shrink-0 rounded-[2px] overflow-hidden">
               <Image src={country.flagImage} alt={`Флаг ${country.name}`} fill className="object-cover" sizes="20px" />
             </div>
           ) : (
@@ -144,7 +144,7 @@ function CountryCard({ country }: { country: Country }) {
       <ul className="flex flex-col gap-y-[12px]">
         {country.benefits.map((b) => (
           <li key={b} className="flex items-start gap-2 text-xs text-[#344054]">
-            <Check size={14} className="text-blue-500 mt-0.5 flex-shrink-0 w-4 h-4" />
+            <Check size={14} className="text-blue-500 mt-0.5 shrink-0 w-4 h-4" />
             {b}
           </li>
         ))}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -27,7 +27,7 @@ export default function ConsultationModal({ isOpen, onClose }: ConsultationModal
     };
   }, [isOpen, onClose]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     onClose();
   };
@@ -36,7 +36,7 @@ export default function ConsultationModal({ isOpen, onClose }: ConsultationModal
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="fixed inset-0 z-[200] flex items-center justify-center px-4"
+          className="fixed inset-0 z-200 flex items-center justify-center px-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -53,7 +53,7 @@ export default function ConsultationModal({ isOpen, onClose }: ConsultationModal
 
           {/* Окно */}
           <motion.div
-            className="relative z-10 w-full max-w-[480px] bg-white rounded-[16px] shadow-2xl p-6 flex flex-col gap-5"
+            className="relative z-10 w-full max-w-120 bg-white rounded-2xl shadow-2xl p-6 flex flex-col gap-5"
             initial={{ opacity: 0, scale: 0.95, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
@@ -125,7 +125,7 @@ export default function ConsultationModal({ isOpen, onClose }: ConsultationModal
                   type="checkbox"
                   checked={agreed}
                   onChange={(e) => setAgreed(e.target.checked)}
-                  className="mt-0.5 w-4 h-4 rounded border-[#D0D5DD] accent-[#2563EB] cursor-pointer flex-shrink-0"
+                  className="mt-0.5 w-4 h-4 rounded border-[#D0D5DD] accent-[#2563EB] cursor-pointer shrink-0"
                 />
                 <span className="text-xs text-[#667085] leading-relaxed">
                   Я согласен на обработку{" "}

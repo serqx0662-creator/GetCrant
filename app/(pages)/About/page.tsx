@@ -12,7 +12,7 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      <main className="pt-[72px]">
+      <main className="pt-18">
         <AboutHero />
         <AboutStats />
         <AboutMission />
