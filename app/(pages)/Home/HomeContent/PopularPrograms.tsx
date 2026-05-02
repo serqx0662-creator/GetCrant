@@ -29,7 +29,7 @@ const programs: Program[] = [
     id: 1,
     title: "Computer Science",
     tags: ["Software Engineer", "Data Scientist"],
-    image: "/image/HomeContent/PopularPrograms/Rectangle 1.png",
+    image: "/image/HomeContent/Popular-programs/Rectangle 1.png",
     duration: "4 года", salary: "$85,000",
     href: "https://ru.wikipedia.org/wiki/Информатика",
   },
@@ -37,7 +37,7 @@ const programs: Program[] = [
     id: 2,
     title: "Web Developer",
     tags: ["Product Manager", "UX Designer"],
-    image: "/image/HomeContent/PopularPrograms/Rectangle 1 (5).png",
+    image: "/image/HomeContent/Popular-programs/Rectangle 2.png",
     duration: "3 года", salary: "$90,000",
     href: "https://ru.wikipedia.org/wiki/Веб-разработка",
   },
@@ -45,7 +45,7 @@ const programs: Program[] = [
     id: 3,
     title: "System Administrator",
     tags: ["DevOps Engineer", "Business Analyst"],
-    image: "/image/HomeContent/PopularPrograms/Rectangle 1 (6).png",
+    image: "/image/HomeContent/Popular-programs/Rectangle 3.png",
     duration: "5 лет", salary: "$95,000",
     href: "https://ru.wikipedia.org/wiki/Системный_администратор",
   },
@@ -53,7 +53,7 @@ const programs: Program[] = [
     id: 4,
     title: "Mobile Developer",
     tags: ["Frontend Developer", "Data Analyst"],
-    image: "/image/HomeContent/PopularPrograms/Frame 53 (2).png",
+    image: "/image/HomeContent/Popular-programs/Rectangle 4.png",
     duration: "2 года", salary: "$75,000",
     href: "https://ru.wikipedia.org/wiki/Мобильная_разработка",
   },
@@ -61,7 +61,7 @@ const programs: Program[] = [
     id: 5,
     title: "Backend Developer",
     tags: ["Backend Architecture", "API Design"],
-    image: "/image/HomeContent/PopularPrograms/Backend.jpg",
+    image: "/image/HomeContent/Popular-programs/d26c693a1878b9c7da4edec96d65aa6b686c6b6d.jpg",
     duration: "4 года", salary: "$80,000",
     href: "https://ru.wikipedia.org/wiki/Бэкенд",
   },
@@ -69,7 +69,7 @@ const programs: Program[] = [
     id: 6,
     title: "Game Developer",
     tags: ["Game Design", "C++"],
-    image: "/image/HomeContent/PopularPrograms/Robotics Engineer.webp",
+    image: "/image/HomeContent/Popular-programs/Rectangle 1.png",
     duration: "4 года", salary: "$90,000",
     href: "https://ru.wikipedia.org/wiki/Разработка_компьютерных_игр",
   },
@@ -77,7 +77,7 @@ const programs: Program[] = [
     id: 7,
     title: "Cybersecurity",
     tags: ["Network Security", "Ethical Hacking"],
-    image: "/image/HomeContent/PopularPrograms/Cybersecurity.webp",
+    image: "/image/HomeContent/Popular-programs/Rectangle 2.png",
     duration: "4 года", salary: "$95,000",
     href: "https://ru.wikipedia.org/wiki/Информационная_безопасность",
   },
@@ -85,7 +85,7 @@ const programs: Program[] = [
     id: 8,
     title: "Artificial Intelligence",
     tags: ["Python", "Neural Networks"],
-    image: "/image/HomeContent/PopularPrograms/AI.jpg",
+    image: "/image/HomeContent/Popular-programs/Rectangle 3.png",
     duration: "4 года", salary: "$105,000",
     href: "https://ru.wikipedia.org/wiki/Искусственный_интеллект",
   },
@@ -93,7 +93,7 @@ const programs: Program[] = [
     id: 9,
     title: "Data Engineer",
     tags: ["Big Data", "ETL Developer"],
-    image: "/image/HomeContent/PopularPrograms/Data Engineer.png",
+    image: "/image/HomeContent/Popular-programs/Rectangle 4.png",
     duration: "3 года", salary: "$100,000",
     href: "https://ru.wikipedia.org/wiki/Инженерия_данных",
   },
@@ -101,7 +101,7 @@ const programs: Program[] = [
     id: 10,
     title: "Cloud Architect",
     tags: ["AWS", "Cloud Infrastructure"],
-    image: "/image/HomeContent/PopularPrograms/Cloud Architect.webp",
+    image: "/image/HomeContent/Popular-programs/d26c693a1878b9c7da4edec96d65aa6b686c6b6d.jpg",
     duration: "5 лет", salary: "$110,000",
     href: "https://ru.wikipedia.org/wiki/Облачные_вычисления",
   },
@@ -115,16 +115,21 @@ function ProgramCard({ program }: { program: Program }) {
       href={program.href}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex flex-col w-[300px] p-[10px] pb-[20px] gap-[10px] rounded-2xl border border-[#EAECF0] bg-white transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+      className="group flex flex-col w-75 p-2.5 pb-5 gap-2.5 rounded-2xl border border-[#EAECF0] bg-white transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
     >
       {/* Изображение */}
-      <div className="relative w-full h-[160px] rounded-xl overflow-hidden bg-slate-200">
+      <div className="relative w-full h-40 rounded-xl overflow-hidden bg-slate-200">
         {program.image ? (
-          <Image src={program.image} alt={program.title} fill className="object-cover scale-100 transition-transform duration-500 ease-out group-hover:scale-110" sizes="300px" />
+          <Image
+            src={program.image}
+            alt={program.title}
+            fill
+            className="object-cover scale-100 transition-transform duration-500 ease-out group-hover:scale-110"
+            sizes="300px"
+          />
         ) : (
           <div className="w-full h-full bg-slate-200" />
         )}
-        {/* Бейдж с короной */}
         <div className="absolute top-3 left-3 w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center z-10">
           <Crown size={18} stroke="white" strokeWidth={2} />
         </div>
@@ -181,7 +186,7 @@ export default function PopularPrograms() {
         slidesPerView="auto"
         spaceBetween={20}
         grabCursor={true}
-        className="!px-6 lg:!px-12 !pb-4"
+        className="px-6! lg:px-12! pb-4!"
       >
         {programs.map((p) => (
           <SwiperSlide key={p.id} style={{ width: "auto" }}>

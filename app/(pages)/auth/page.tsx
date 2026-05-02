@@ -210,7 +210,7 @@ export default function AuthPage() {
           {/* Правая панель — фото (скрыта на мобилке) */}
           <div className="hidden md:block relative flex-1 overflow-hidden group">
             <Image
-              src="/image/hero-students.jpg"
+              src="/image/HomeContent/Home-page/hero-students.jpg"
               alt="Студенты GetGrant"
               fill
               className="object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"

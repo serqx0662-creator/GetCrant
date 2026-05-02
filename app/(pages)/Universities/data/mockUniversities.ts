@@ -18,7 +18,7 @@ export const mockUniversities: University[] = [
     {
         id: 1,
         name: "Harvard University",
-        image: "/image/HomeContent/PartnerUniversities/Frame 53 (3).png",
+        image: "/image/Universities/Univer 1-1.png",        /* Harvard University */
         programsCount: 120,
         studentsCount: 23000,
         location: { city: "Cambridge", state: "MA", country: "США" },
@@ -29,7 +29,7 @@ export const mockUniversities: University[] = [
     {
         id: 2,
         name: "Stanford University",
-        image: "/image/HomeContent/PartnerUniversities/Frame 53 (4).png",
+        image: "/image/Universities/Univer 2-2.png",       /* Stanford University */
         programsCount: 150,
         studentsCount: 22000,
         location: { city: "Stanford", state: "CA", country: "США" },
@@ -40,7 +40,7 @@ export const mockUniversities: University[] = [
     {
         id: 3,
         name: "MIT",
-        image: "/image/HomeContent/PartnerUniversities/Frame 53 (5).png",
+        image: "/image/Universities/Univer 3-3.png",            /* MIT */
         programsCount: 120,
         studentsCount: 11000,
         location: { city: "Cambridge", state: "MA", country: "США" },
@@ -51,7 +51,7 @@ export const mockUniversities: University[] = [
     {
         id: 4,
         name: "University of California, Berkeley",
-        image: "/image/HomeContent/PartnerUniversities/Frame 53 (6).png",
+        image: "/image/Universities/Univer 4-4.png",       /* UC Berkeley */
         programsCount: 140,
         studentsCount: 30000,
         location: { city: "Berkeley", state: "CA", country: "США" },
@@ -62,7 +62,7 @@ export const mockUniversities: University[] = [
     {
         id: 5,
         name: "Princeton University",
-        image: "/image/HomeContent/PartnerUniversities/Princeton University.webp",
+        image: "/image/Universities/Univer 1-1.png",      /* Princeton University */
         programsCount: 90,
         studentsCount: 8000,
         location: { city: "Princeton", state: "NJ", country: "США" },
@@ -73,7 +73,7 @@ export const mockUniversities: University[] = [
     {
         id: 6,
         name: "University of Toronto",
-        image: "/image/HomeContent/PartnerUniversities/University of Toronto.jpg",
+        image: "/image/Universities/Univer 2-2.png",        /* University of Toronto */
         programsCount: 200,
         studentsCount: 60000,
         location: { city: "Toronto", state: "ON", country: "Канада" },
@@ -84,7 +84,7 @@ export const mockUniversities: University[] = [
     {
         id: 7,
         name: "University of Oxford",
-        image: "/image/HomeContent/PartnerUniversities/Oxford University.webp",
+        image: "/image/Universities/Univer 3-3.png",         /* University of Oxford */
         programsCount: 150,
         studentsCount: 24000,
         location: { city: "Oxford", state: "", country: "Великобритания" },
@@ -95,7 +95,7 @@ export const mockUniversities: University[] = [
     {
         id: 8,
         name: "University of Cambridge",
-        image: "/image/HomeContent/PartnerUniversities/Cambridge University.jpg",
+        image: "/image/Universities/Univer 4-4.png",      /* University of Cambridge */
         programsCount: 180,
         studentsCount: 21000,
         location: { city: "Cambridge", state: "", country: "Великобритания" },
@@ -106,7 +106,7 @@ export const mockUniversities: University[] = [
     {
         id: 9,
         name: "ETH Zurich",
-        image: "/image/HomeContent/PartnerUniversities/ETH Zurich.jpg",
+        image: "/image/Universities/Univer 1-1.png",     /* ETH Zurich */
         programsCount: 95,
         studentsCount: 22000,
         location: { city: "Zurich", state: "", country: "Швейцария" },
@@ -117,7 +117,7 @@ export const mockUniversities: University[] = [
     {
         id: 10,
         name: "University of Melbourne",
-        image: "/image/HomeContent/PartnerUniversities/University of Melbourne.jpg",
+        image: "/image/Universities/Univer 2-2.png",      /* University of Melbourne */
         programsCount: 100,
         studentsCount: 52000,
         location: { city: "Melbourne", state: "VIC", country: "Австралия" },
@@ -128,7 +128,7 @@ export const mockUniversities: University[] = [
     {
         id: 11,
         name: "McGill University",
-        image: "/image/HomeContent/PartnerUniversities/Frame 53 (3).png",
+        image: "/image/Universities/Univer 3-3.png",         /* McGill University */
         programsCount: 90,
         studentsCount: 40000,
         location: { city: "Montreal", state: "QC", country: "Канада" },
@@ -139,7 +139,7 @@ export const mockUniversities: University[] = [
     {
         id: 12,
         name: "Imperial College London",
-        image: "/image/HomeContent/PartnerUniversities/Frame 53 (5).png",
+        image: "/image/Universities/Univer 4-4.png",       /* Imperial College London */
         programsCount: 100,
         studentsCount: 19000,
         location: { city: "London", state: "", country: "Великобритания" },

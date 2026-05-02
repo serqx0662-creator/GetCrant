@@ -76,7 +76,7 @@ export default function GetGrantHero() {
                     <div className="relative group">
                         <div className="relative w-full aspect-4/4.5 rounded-[48px] overflow-hidden shadow-2xl shadow-blue-900/10">
                             <Image
-                                src="/image/hero-students.jpg"
+                                src="/image/HomeContent/Home-page/hero-students.jpg"
                                 alt="Students in University"
                                 fill
                                 className="object-cover transition-transform duration-700 group-hover:scale-105"

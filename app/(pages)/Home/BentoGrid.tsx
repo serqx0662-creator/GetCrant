@@ -7,7 +7,7 @@ const BENEFITS = [
         title: "95% успеха",
         description: "Наши студенты успешно поступают в топовые университеты мира",
         className: "col-span-1 sm:col-span-2 md:col-span-2 md:row-span-2 bg-gradient-to-br from-[#A16FD3] to-[#583177] text-white",
-        image: "/image/student-grid1.png",
+        image: "/image/HomeContent/Home-page/student-grid1.png",
         imgClass: "right-[-5%] bottom-[-5%] w-[60%] sm:w-[40%] md:w-[60%] h-auto",
     },
     {
@@ -15,7 +15,7 @@ const BENEFITS = [
         title: "Персональный менеджер",
         description: "Индивидуальное сопровождение на всех этапах подготовки и поступления",
         className: "col-span-1 sm:col-span-2 md:col-span-2 md:row-span-2 bg-gradient-to-br from-[#F5F8FE] to-[#D0EFE9] text-slate-900",
-        image: "/image/student-grid2.png",
+        image: "/image/HomeContent/Home-page/student-grid2.png",
         imgClass: "right-0 bottom-0 w-[60%] sm:w-[40%] md:w-[65%] h-auto",
     },
     {
@@ -23,7 +23,7 @@ const BENEFITS = [
         title: "Лицензированный центр",
         description: "Наши студенты успешно поступают в топовые университеты мира",
         className: "col-span-1 sm:col-span-2 md:col-span-2 bg-gradient-to-r from-[#F5F8FE] to-[#E9EFFD] text-slate-900",
-        image: "/image/student-grid5.png",
+        image: "/image/HomeContent/Home-page/student-grid5.png",
         imgClass: "right-4 top-1/2 -translate-y-1/2 w-[35%] sm:w-[20%] md:w-[50%] h-auto",
     },
     {
@@ -31,7 +31,7 @@ const BENEFITS = [
         title: "Поддержка 24/7",
         description: "Всегда на связи для ответов на ваши вопросы",
         className: "col-span-1 sm:col-span-1 md:col-span-1 md:row-span-2 bg-gradient-to-b from-[#FEF9E8] to-[#FDE1A7] text-slate-900",
-        image: "/image/student-grid3.png",
+        image: "/image/HomeContent/Home-page/student-grid3.png",
         imgClass: "right-0 bottom-0 w-[85%] sm:w-[65%] md:w-[95%] h-auto",
     },
     {
@@ -39,7 +39,7 @@ const BENEFITS = [
         title: "15+ стран",
         description: "Партнёрство с университетами мира",
         className: "col-span-1 sm:col-span-1 md:col-span-1 md:row-span-2 bg-[#EAECF0] text-slate-900",
-        image: "/image/student-grid4.png",
+        image: "/image/HomeContent/Home-page/student-grid4.png",
         imgClass: "right-0 bottom-0 w-full h-auto opacity-80",
     },
     {
@@ -47,7 +47,7 @@ const BENEFITS = [
         title: "Онлайн-подготовка",
         description: "Курсы по языку, предметам и экзаменам",
         className: "col-span-1 sm:col-span-2 md:col-span-2 bg-gradient-to-r from-[#F5F8FE] to-[#E9EFFD] text-slate-900",
-        image: "/image/student-grid6.png",
+        image: "/image/HomeContent/Home-page/student-grid6.png",
         imgClass: "right-4 bottom-0 w-[35%] sm:w-[25%] md:w-[38%] h-auto",
     },
 ];

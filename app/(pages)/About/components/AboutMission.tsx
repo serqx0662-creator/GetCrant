@@ -34,7 +34,7 @@ export default function AboutMission() {
 
           <div className="relative w-full h-100 rounded-[40px] overflow-hidden">
             <Image
-              src="/image/hero-students.jpg"
+              src="/image/About/Rectangle 5.png"
               alt="Команда GetGrant"
               fill
               className="object-cover"
