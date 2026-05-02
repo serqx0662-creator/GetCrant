@@ -35,11 +35,11 @@ const countriesData: Record<string, CountryData> = {
     ],
     costTotal: { min: "$1,150", avg: "$2,150", max: "$3,650" },
     universities: [
-      { id: 1, name: "Harvard University",                 programs: "120 программ", students: "23 000", location: "Cambridge, MA, США", image: "/image/HomeContent/PartnerUniversities/Frame 53 (3).png",          href: "https://ru.wikipedia.org/wiki/Гарвардский_университет" },
-      { id: 2, name: "Stanford University",                programs: "150 программ", students: "22 000", location: "Stanford, CA, США",   image: "/image/HomeContent/PartnerUniversities/Frame 53 (4).png",          href: "https://ru.wikipedia.org/wiki/Стэнфордский_университет" },
-      { id: 3, name: "MIT",                                programs: "120 программ", students: "11 000", location: "Cambridge, MA, США",  image: "/image/HomeContent/PartnerUniversities/Frame 53 (5).png",          href: "https://ru.wikipedia.org/wiki/Массачусетский_технологический_институт" },
-      { id: 4, name: "University of California, Berkeley", programs: "140 программ", students: "30 000", location: "Berkeley, CA, США",   image: "/image/HomeContent/PartnerUniversities/Frame 53 (6).png",          href: "https://ru.wikipedia.org/wiki/Калифорнийский_университет_в_Беркли" },
-      { id: 5, name: "Princeton University",               programs: "90 программ",  students: "8 000",  location: "Princeton, NJ, США",  image: "/image/HomeContent/PartnerUniversities/Princeton University.webp", href: "https://ru.wikipedia.org/wiki/Принстонский_университет" },
+      { id: 1, name: "Harvard University",                 programs: "120 программ", students: "23 000", location: "Cambridge, MA, США", image: "/image/Universities/Univer 1-1.png", href: "https://ru.wikipedia.org/wiki/Гарвардский_университет" },
+      { id: 2, name: "Stanford University",                programs: "150 программ", students: "22 000", location: "Stanford, CA, США",   image: "/image/Universities/Univer 2-2.png", href: "https://ru.wikipedia.org/wiki/Стэнфордский_университет" },
+      { id: 3, name: "MIT",                                programs: "120 программ", students: "11 000", location: "Cambridge, MA, США",  image: "/image/Universities/Univer 3-3.png", href: "https://ru.wikipedia.org/wiki/Массачусетский_технологический_институт" },
+      { id: 4, name: "University of California, Berkeley", programs: "140 программ", students: "30 000", location: "Berkeley, CA, США",   image: "/image/Universities/Univer 4-4.png", href: "https://ru.wikipedia.org/wiki/Калифорнийский_университет_в_Беркли" },
+      { id: 5, name: "Princeton University",               programs: "90 программ",  students: "8 000",  location: "Princeton, NJ, США",  image: "/image/Universities/Univer 1-1.png", href: "https://ru.wikipedia.org/wiki/Принстонский_университет" },
     ],
     visaTypes: [
       { title: "F-1 Student Visa",  desc: "Основная студенческая виза для аккредитованных университетов" },
@@ -68,10 +68,10 @@ const countriesData: Record<string, CountryData> = {
     ],
     costTotal: { min: "$1,440", avg: "$2,400", max: "$3,930" },
     universities: [
-      { id: 1, name: "University of Toronto",  programs: "130 программ", students: "97 000", location: "Toronto, ON",   image: "/image/HomeContent/PartnerUniversities/University of Toronto.jpg", href: "https://ru.wikipedia.org/wiki/Университет_Торонто" },
-      { id: 2, name: "UBC",                    programs: "100 программ", students: "65 000", location: "Vancouver, BC", image: "/image/HomeContent/PartnerUniversities/Cambridge University.jpg",  href: "https://ru.wikipedia.org/wiki/Университет_Британской_Колумбии" },
-      { id: 3, name: "McGill University",      programs: "90 программ",  students: "40 000", location: "Montreal, QC",  image: "/image/HomeContent/PartnerUniversities/Oxford University.webp",   href: "https://ru.wikipedia.org/wiki/Университет_Макгилла" },
-      { id: 4, name: "University of Waterloo", programs: "80 программ",  students: "42 000", location: "Waterloo, ON",  image: "/image/HomeContent/PartnerUniversities/ETH Zurich.jpg",           href: "https://ru.wikipedia.org/wiki/Университет_Ватерлоо" },
+      { id: 1, name: "University of Toronto",  programs: "130 программ", students: "97 000", location: "Toronto, ON",   image: "/image/Universities/Univer 2-2.png", href: "https://ru.wikipedia.org/wiki/Университет_Торонто" },
+      { id: 2, name: "UBC",                    programs: "100 программ", students: "65 000", location: "Vancouver, BC", image: "/image/Universities/Univer 3-3.png", href: "https://ru.wikipedia.org/wiki/Университет_Британской_Колумбии" },
+      { id: 3, name: "McGill University",      programs: "90 программ",  students: "40 000", location: "Montreal, QC",  image: "/image/Universities/Univer 3-3.png", href: "https://ru.wikipedia.org/wiki/Университет_Макгилла" },
+      { id: 4, name: "University of Waterloo", programs: "80 программ",  students: "42 000", location: "Waterloo, ON",  image: "/image/Universities/Univer 4-4.png", href: "https://ru.wikipedia.org/wiki/Университет_Ватерлоо" },
     ],
     visaTypes: [
       { title: "Study Permit",      desc: "Основная виза для обучения продолжительностью более 6 месяцев" },
@@ -100,10 +100,10 @@ const countriesData: Record<string, CountryData> = {
     ],
     costTotal: { min: "$1,650", avg: "$2,770", max: "$4,380" },
     universities: [
-      { id: 1, name: "University of Melbourne",        programs: "100 программ", students: "52 000", location: "Melbourne, VIC", image: "/image/HomeContent/PartnerUniversities/University of Melbourne.jpg", href: "https://ru.wikipedia.org/wiki/Мельбурнский_университет" },
-      { id: 2, name: "University of Sydney",           programs: "110 программ", students: "73 000", location: "Sydney, NSW",    image: "/image/HomeContent/PartnerUniversities/Oxford University.webp",     href: "https://ru.wikipedia.org/wiki/Сиднейский_университет" },
-      { id: 3, name: "Australian National University", programs: "80 программ",  students: "25 000", location: "Canberra, ACT",  image: "/image/HomeContent/PartnerUniversities/ETH Zurich.jpg",             href: "https://ru.wikipedia.org/wiki/Австралийский_национальный_университет" },
-      { id: 4, name: "University of Queensland",       programs: "90 программ",  students: "55 000", location: "Brisbane, QLD",  image: "/image/HomeContent/PartnerUniversities/Princeton University.webp",  href: "https://ru.wikipedia.org/wiki/Университет_Квинсленда" },
+      { id: 1, name: "University of Melbourne",        programs: "100 программ", students: "52 000", location: "Melbourne, VIC", image: "/image/Universities/Univer 2-2.png", href: "https://ru.wikipedia.org/wiki/Мельбурнский_университет" },
+      { id: 2, name: "University of Sydney",           programs: "110 программ", students: "73 000", location: "Sydney, NSW",    image: "/image/Universities/Univer 3-3.png", href: "https://ru.wikipedia.org/wiki/Сиднейский_университет" },
+      { id: 3, name: "Australian National University", programs: "80 программ",  students: "25 000", location: "Canberra, ACT",  image: "/image/Universities/Univer 4-4.png", href: "https://ru.wikipedia.org/wiki/Австралийский_национальный_университет" },
+      { id: 4, name: "University of Queensland",       programs: "90 программ",  students: "55 000", location: "Brisbane, QLD",  image: "/image/Universities/Univer 1-1.png", href: "https://ru.wikipedia.org/wiki/Университет_Квинсленда" },
     ],
     visaTypes: [
       { title: "Student Visa (subclass 500)",            desc: "Основная виза для всех иностранных студентов" },
@@ -132,10 +132,10 @@ const countriesData: Record<string, CountryData> = {
     ],
     costTotal: { min: "£1,270", avg: "£2,120", max: "£3,190" },
     universities: [
-      { id: 1, name: "University of Oxford",    programs: "150 программ", students: "24 000", location: "Oxford, UK",    image: "/image/HomeContent/PartnerUniversities/Oxford University.webp",   href: "https://ru.wikipedia.org/wiki/Оксфордский_университет" },
-      { id: 2, name: "University of Cambridge", programs: "180 программ", students: "21 000", location: "Cambridge, UK", image: "/image/HomeContent/PartnerUniversities/Cambridge University.jpg", href: "https://ru.wikipedia.org/wiki/Кембриджский_университет" },
-      { id: 3, name: "Imperial College London", programs: "100 программ", students: "19 000", location: "London, UK",    image: "/image/HomeContent/PartnerUniversities/Frame 53 (5).png",         href: "https://ru.wikipedia.org/wiki/Имперский_колледж_Лондона" },
-      { id: 4, name: "UCL",                     programs: "120 программ", students: "42 000", location: "London, UK",    image: "/image/HomeContent/PartnerUniversities/Frame 53 (6).png",         href: "https://ru.wikipedia.org/wiki/Университетский_колледж_Лондона" },
+      { id: 1, name: "University of Oxford",    programs: "150 программ", students: "24 000", location: "Oxford, UK",    image: "/image/Universities/Univer 3-3.png", href: "https://ru.wikipedia.org/wiki/Оксфордский_университет" },
+      { id: 2, name: "University of Cambridge", programs: "180 программ", students: "21 000", location: "Cambridge, UK", image: "/image/Universities/Univer 4-4.png", href: "https://ru.wikipedia.org/wiki/Кембриджский_университет" },
+      { id: 3, name: "Imperial College London", programs: "100 программ", students: "19 000", location: "London, UK",    image: "/image/Universities/Univer 3-3.png", href: "https://ru.wikipedia.org/wiki/Имперский_колледж_Лондона" },
+      { id: 4, name: "UCL",                     programs: "120 программ", students: "42 000", location: "London, UK",    image: "/image/Universities/Univer 4-4.png", href: "https://ru.wikipedia.org/wiki/Университетский_колледж_Лондона" },
     ],
     visaTypes: [
       { title: "Student Visa (бывшая Tier 4)", desc: "Основная виза для обучения в аккредитованных учебных заведениях" },
@@ -164,10 +164,10 @@ const countriesData: Record<string, CountryData> = {
     ],
     costTotal: { min: "€1,110", avg: "€1,750", max: "€2,700" },
     universities: [
-      { id: 1, name: "Technical University of Munich (TUM)",         programs: "120 программ", students: "50 000", location: "Munich, Germany",     image: "/image/HomeContent/PartnerUniversities/ETH Zurich.jpg",           href: "https://ru.wikipedia.org/wiki/Технический_университет_Мюнхена" },
-      { id: 2, name: "Ludwig Maximilian University of Munich (LMU)", programs: "100 программ", students: "52 000", location: "Munich, Germany",     image: "/image/HomeContent/PartnerUniversities/Frame 53 (3).png",         href: "https://ru.wikipedia.org/wiki/Мюнхенский_университет" },
-      { id: 3, name: "Heidelberg University",                        programs: "80 программ",  students: "30 000", location: "Heidelberg, Germany", image: "/image/HomeContent/PartnerUniversities/Oxford University.webp",   href: "https://ru.wikipedia.org/wiki/Гейдельбергский_университет" },
-      { id: 4, name: "Humboldt University of Berlin",                programs: "90 программ",  students: "36 000", location: "Berlin, Germany",     image: "/image/HomeContent/PartnerUniversities/Cambridge University.jpg", href: "https://ru.wikipedia.org/wiki/Берлинский_университет_имени_Гумбольдта" },
+      { id: 1, name: "Technical University of Munich (TUM)",         programs: "120 программ", students: "50 000", location: "Munich, Germany",     image: "/image/Universities/Univer 1-1.png", href: "https://ru.wikipedia.org/wiki/Технический_университет_Мюнхена" },
+      { id: 2, name: "Ludwig Maximilian University of Munich (LMU)", programs: "100 программ", students: "52 000", location: "Munich, Germany",     image: "/image/Universities/Univer 2-2.png", href: "https://ru.wikipedia.org/wiki/Мюнхенский_университет" },
+      { id: 3, name: "Heidelberg University",                        programs: "80 программ",  students: "30 000", location: "Heidelberg, Germany", image: "/image/Universities/Univer 3-3.png", href: "https://ru.wikipedia.org/wiki/Гейдельбергский_университет" },
+      { id: 4, name: "Humboldt University of Berlin",                programs: "90 программ",  students: "36 000", location: "Berlin, Germany",     image: "/image/Universities/Univer 4-4.png", href: "https://ru.wikipedia.org/wiki/Берлинский_университет_имени_Гумбольдта" },
     ],
     visaTypes: [
       { title: "Student Visa",     desc: "Для долгосрочного обучения в немецком вузе" },
