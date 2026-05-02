@@ -8,6 +8,7 @@ interface UniversityGridProps {
     onCollapse: () => void;
     hasMore: boolean;
     canCollapse: boolean;
+    className?: string;
 }
 
 export default function UniversityGrid({
@@ -17,19 +18,20 @@ export default function UniversityGrid({
                                            onCollapse,
                                            hasMore,
                                            canCollapse,
+                                           className = "",
                                        }: UniversityGridProps) {
     if (universities.length === 0) {
         return (
-            <div className="flex-1 flex items-center justify-center py-24 text-gray-400 text-sm">
+            <div className={`flex-1 flex items-center justify-center py-24 text-gray-400 text-sm ${className}`}>
                 Университеты не найдены. Попробуйте изменить фильтры.
             </div>
         );
     }
 
     return (
-        <div className="flex-1 flex flex-col gap-8">
+        <div className={`flex-1 flex flex-col gap-8 ${className}`}>
             {/* Cards grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 px-4 md:px-0">
                 {universities.map((uni) => (
                     <UniversityCard key={uni.id} university={uni} />
                 ))}

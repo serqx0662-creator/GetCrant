@@ -11,12 +11,15 @@ export default function AboutStats() {
   return (
     <section className="bg-slate-900 py-14">
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+        <div className="grid grid-cols-4 gap-2 md:gap-10">
           {stats.map((s, i) => (
-            <div key={i} className="flex flex-col items-center text-center gap-3">
-              <div className="bg-white/10 p-3 rounded-lg">{s.icon}</div>
-              <p className="text-3xl font-bold text-white">{s.value}</p>
-              <p className="text-sm text-slate-400">{s.label}</p>
+            <div key={i} className="flex flex-col items-center text-center gap-1 md:gap-3">
+              <div className="bg-white/10 p-2 md:p-3 rounded-lg">
+                {/* Уменьшаем иконку на мобилке */}
+                <span className="block [&>svg]:w-4 [&>svg]:h-4 md:[&>svg]:w-5 md:[&>svg]:h-5">{s.icon}</span>
+              </div>
+              <p className="text-lg md:text-3xl font-bold text-white leading-tight">{s.value}</p>
+              <p className="text-[9px] md:text-sm text-slate-400 leading-tight">{s.label}</p>
             </div>
           ))}
         </div>

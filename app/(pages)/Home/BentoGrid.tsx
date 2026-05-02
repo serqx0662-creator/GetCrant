@@ -24,7 +24,7 @@ const BENEFITS = [
         description: "Наши студенты успешно поступают в топовые университеты мира",
         className: "col-span-1 sm:col-span-2 md:col-span-2 bg-gradient-to-r from-[#F5F8FE] to-[#E9EFFD] text-slate-900",
         image: "/image/HomeContent/Home-page/student-grid5.png",
-        imgClass: "right-4 top-1/2 -translate-y-1/2 w-[35%] sm:w-[20%] md:w-[50%] h-auto",
+        imgClass: "right-4 top-0 sm:top-1/2 sm:-translate-y-1/2 w-[30%] sm:w-[20%] md:w-[50%] h-auto",
     },
     {
         id: 4,
@@ -32,7 +32,7 @@ const BENEFITS = [
         description: "Всегда на связи для ответов на ваши вопросы",
         className: "col-span-1 sm:col-span-1 md:col-span-1 md:row-span-2 bg-gradient-to-b from-[#FEF9E8] to-[#FDE1A7] text-slate-900",
         image: "/image/HomeContent/Home-page/student-grid3.png",
-        imgClass: "right-0 bottom-0 w-[85%] sm:w-[65%] md:w-[95%] h-auto",
+        imgClass: "right-0 bottom-0 w-[55%] sm:w-[65%] md:w-[95%] h-auto",
     },
     {
         id: 5,

@@ -71,6 +71,7 @@ export default function CatalogLayout() {
                     onCollapse={collapse}
                     hasMore={hasMore}
                     canCollapse={canCollapse}
+                    className="w-full min-w-0"
                 />
             </div>
         </div>

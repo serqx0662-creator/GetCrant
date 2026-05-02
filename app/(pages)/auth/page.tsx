@@ -167,7 +167,7 @@ export default function AuthPage() {
       {/* Кнопка «На главную» — фиксированная в углу страницы */}
       <Link
         href="/"
-        className="fixed top-8 left-8 z-50 flex items-center gap-2 text-slate-600 hover:text-blue-600 transition-colors group text-sm font-medium"
+        className="fixed top-4 left-4 md:top-8 md:left-8 z-50 flex items-center gap-2 text-blue-600 md:text-slate-600 hover:text-blue-600 transition-colors group text-sm font-semibold md:font-medium bg-white/80 md:bg-transparent backdrop-blur-sm md:backdrop-blur-none px-3 py-2 md:px-0 md:py-0 rounded-lg md:rounded-none shadow-sm md:shadow-none"
       >
         <ArrowLeft size={16} className="transition-transform duration-200 group-hover:-translate-x-1" />
         На главную

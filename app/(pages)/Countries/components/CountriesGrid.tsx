@@ -40,7 +40,7 @@ const countries: Country[] = [
 
 export default function CountriesGrid() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 px-4 sm:px-0">
       {countries.map((country) => (
         <CountryCard key={country.id} country={country} />
       ))}

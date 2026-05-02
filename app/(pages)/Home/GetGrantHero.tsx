@@ -59,13 +59,13 @@ export default function GetGrantHero() {
                             </Button>
                         </div>
 
-                        <div className="mt-6 py-8 px-2 md:py-10 md:px-10 bg-[#F8F9FB] rounded-[20px] flex flex-wrap gap-x-6 lg:gap-x-10 gap-y-8">
+                        <div className="mt-6 py-6 px-4 md:py-10 md:px-10 bg-[#F8F9FB] rounded-[20px] grid grid-cols-3 gap-4 md:flex md:flex-wrap md:gap-x-10 md:gap-y-8">
                             {stats.map((stat, idx) => (
-                                <div key={idx} className="flex flex-col space-y-1">
-                                    <span className="text-4xl md:text-4xl font-semibold tracking-tighter text-[#101828]">
+                                <div key={idx} className="flex flex-col space-y-1 items-start">
+                                    <span className="text-2xl md:text-4xl font-semibold tracking-tighter text-[#101828]">
                                         {stat.value}
                                     </span>
-                                    <span className="text-sm font-medium text-[#667085] leading-tight">
+                                    <span className="text-[11px] md:text-sm font-medium text-[#667085] leading-tight">
                                         {stat.label}
                                     </span>
                                 </div>

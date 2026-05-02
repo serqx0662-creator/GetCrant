@@ -57,7 +57,7 @@ export default function CountryUniversities({ universities }: CountryUniversitie
       <div className="container mx-auto px-6 lg:px-12">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-2xl font-bold text-[#101828]">Топ университеты</h2>
-          <Link href="/Universities" className="px-5 py-2 rounded-[8px] bg-[#1570EF] text-white text-sm font-semibold hover:bg-[#1D4ED8] transition-colors">
+          <Link href="/Universities" className="px-4 py-2 rounded-[8px] bg-[#1570EF] text-white text-xs sm:text-sm font-semibold hover:bg-[#1D4ED8] transition-colors whitespace-nowrap shrink-0">
             Показать все
           </Link>
         </div>

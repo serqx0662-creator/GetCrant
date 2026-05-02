@@ -7,7 +7,7 @@ export default function AboutHero() {
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <p className="text-sm text-gray-400 mb-4">О нас</p>
 
-        <h1 className="text-5xl lg:text-6xl font-black leading-tight mb-6">
+        <h1 className="text-2xl sm:text-5xl lg:text-6xl font-black leading-tight mb-6">
           <span className="text-slate-900">МЫ ПОМОГАЕМ МЕЧТАМ</span>
           <br />
           <span className="text-blue-600">СТАТЬ РЕАЛЬНОСТЬЮ</span>

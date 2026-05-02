@@ -14,27 +14,27 @@ export default function Footer() {
         {
             title: "Образование",
             links: [
-                { label: "Университеты", href: "/University" },
-                { label: "Страны", href: "/Countries" },
-                { label: "Программы", href: "/Programs" },
-                { label: "Онлайн-подготовка", href: "/Preparation" },
+                { label: "Университеты",      href: "/Universities" },
+                { label: "Страны",             href: "/Countries"    },
+                { label: "Программы",          href: "/Programs"     },
+                { label: "Онлайн-подготовка",  href: "/OnlinePrep"   },
             ],
         },
         {
             title: "Компания",
             links: [
-                { label: "О нас", href: "/About" },
-                { label: "Наша команда", href: "/Team" },
-                { label: "Партнёры", href: "/Partners" },
+                { label: "О нас",        href: "/About"    },
+                { label: "Наша команда", href: "/About"    },
+                { label: "Партнёры",     href: "/About"    },
             ],
         },
         {
             title: "Поддержка",
             links: [
-                { label: "FAQ", href: "/faq" },
-                { label: "Контакты", href: "/Contacts" },
-                { label: "Блог", href: "/Blog" },
-                { label: "Документы", href: "/Docs" },
+                { label: "FAQ",       href: "/About"    },
+                { label: "Контакты",  href: "/About"    },
+                { label: "Блог",      href: "/About"    },
+                { label: "Документы", href: "/About"    },
             ],
         },
     ];
@@ -73,31 +73,32 @@ export default function Footer() {
     return (
         <footer className="bg-[#0B1221] text-gray-400 py-10 lg:pt-14 pb-14">
             <div className="container mx-auto px-6 lg:px-12">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8 mb-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-8 mb-10">
 
+                    {/* Контакты */}
                     <div className="lg:col-span-2 space-y-6">
                         <Link href="/" className="flex items-center gap-3">
                             <div className="bg-blue-600 py-2 px-4 rounded-lg">
-                                <span className="text-white font-bold text-2xl ">G</span>
+                                <span className="text-white font-bold text-2xl">G</span>
                             </div>
-                            <span className="text-white text-2xl font-bold tracking-tight ">GetGrant</span>
+                            <span className="text-white text-2xl font-bold tracking-tight">GetGrant</span>
                         </Link>
 
                         <p className="max-w-xs text-[15px] leading-relaxed">
                             Онлайн-сервис для подготовки и сопровождения поступления студентов 9–11 классов за рубеж.
                         </p>
 
-                        <div className="space-y-4 pt-4">
-                            <a href="tel:+996554123456" className="flex items-center gap-3 hover:text-white transition-colors">
-                                <Phone size={18} className="text-gray-500" />
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                            <a href="tel:+996554123456" className="flex items-center gap-2 hover:text-white transition-colors">
+                                <Phone size={16} className="text-gray-500 shrink-0" />
                                 <span className="text-sm font-medium">+996 554 123 456</span>
                             </a>
-                            <a href="mailto:info@getgrant.kg" className="flex items-center gap-3 hover:text-white transition-colors">
-                                <Mail size={18} className="text-gray-500" />
+                            <a href="mailto:info@getgrant.kg" className="flex items-center gap-2 hover:text-white transition-colors">
+                                <Mail size={16} className="text-gray-500 shrink-0" />
                                 <span className="text-sm font-medium">info@getgrant.kg</span>
                             </a>
-                            <div className="flex items-center gap-3">
-                                <MapPin size={18} className="text-gray-500" />
+                            <div className="flex items-start gap-2 sm:col-span-2">
+                                <MapPin size={16} className="text-gray-500 shrink-0 mt-0.5" />
                                 <span className="text-sm font-medium leading-tight">
                                     Бишкек, ул. Касыма Тыныстанова, 197/1
                                 </span>
@@ -105,22 +106,25 @@ export default function Footer() {
                         </div>
                     </div>
 
-                    {sections.map((section) => (
-                        <div key={section.title} className="space-y-6">
-                            <h4 className="text-white font-black uppercase text-sm tracking-widest">
-                                {section.title}
-                            </h4>
-                            <ul className="space-y-4">
-                                {section.links.map((link) => (
-                                    <li key={link.label}>
-                                        <Link href={link.href} className="hover:text-blue-500 transition-colors text-[15px]">
-                                            {link.label}
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    ))}
+                    {/* Навигационные секции — 2 колонки на мобилке, 3 на десктопе */}
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:contents gap-8 lg:col-span-3">
+                        {sections.map((section) => (
+                            <div key={section.title} className="space-y-4">
+                                <h4 className="text-white font-black uppercase text-xs tracking-widest">
+                                    {section.title}
+                                </h4>
+                                <ul className="space-y-3">
+                                    {section.links.map((link) => (
+                                        <li key={link.label}>
+                                            <Link href={link.href} className="hover:text-blue-500 transition-colors text-sm">
+                                                {link.label}
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))}
+                    </div>
                 </div>
 
                 <div className="border-t border-gray-800/50 py-7 flex flex-wrap gap-4">
