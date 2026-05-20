@@ -13,11 +13,11 @@ const courses: (CourseInfo & { id: number; lessons: number; students: number })[
 
 function CourseCard({ course, onEnroll }: { course: typeof courses[0]; onEnroll: (c: CourseInfo) => void }) {
   return (
-    <div className="w-full rounded-2xl border border-[#EAECF0] bg-white flex flex-col gap-[10px] p-5">
+    <div className="w-full" style={{ padding: "20px", borderRadius: "16px", border: "1px solid #EAECF0", background: "#FFF", display: "flex", flexDirection: "column", gap: "10px" }}>
       <div className="w-8 h-8 rounded-lg bg-[#0047FF] flex items-center justify-center shrink-0">
         <GraduationCap size={18} className="text-white" />
       </div>
-      <div className="min-h-13">
+      <div className="min-h-[52px]">
         <p className="text-sm font-bold text-[#101828]">{course.title}</p>
         <p className="text-xs text-[#667085] mt-1 leading-relaxed">{course.description}</p>
       </div>
@@ -54,9 +54,9 @@ export default function CoursesSection() {
 
   return (
     <>
-      <section className="mb-14">
+      <section className="w-full container mx-auto px-4 md:px-6 lg:px-12">
         <h2 className="text-2xl font-bold text-[#101828] mb-6">Популярные курсы</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 px-4 sm:px-0">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {courses.map((c) => (
             <CourseCard key={c.id} course={c} onEnroll={setSelectedCourse} />
           ))}

@@ -21,7 +21,7 @@ export default function TeacherCard({ teacher, onEnroll }: TeacherCardProps) {
   return (
     <div
       style={{
-        width: "305.75px",
+        width: "100%",
         padding: "20px",
         borderRadius: "16px",
         border: "1px solid #EAECF0",

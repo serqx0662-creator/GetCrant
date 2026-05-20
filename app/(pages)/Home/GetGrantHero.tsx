@@ -85,15 +85,16 @@ export default function GetGrantHero() {
 
                             <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent opacity-60"></div>
 
-                            <div className="absolute bottom-6 left-6 right-6 p-5 rounded-[32px] bg-white/90 backdrop-blur-md border border-white/50 shadow-2xl flex items-center gap-4 translate-y-0 group-hover:-translate-y-2 transition-transform duration-500">
-                                <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white shadow-lg shadow-blue-600/30">
-                                    <Clock3 size={24} />
+                            <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 p-3 sm:p-5 rounded-2xl sm:rounded-[32px] bg-white/50 sm:bg-white/90 backdrop-blur-md border border-white/50 shadow-lg sm:shadow-2xl flex items-center gap-3 sm:gap-4 translate-y-0 group-hover:-translate-y-2 transition-transform duration-500">
+                                <div className="w-9 h-9 sm:w-12 sm:h-12 bg-blue-600 rounded-full flex items-center justify-center text-white shadow-lg shadow-blue-600/30 shrink-0">
+                                    <Clock3 size={18} className="sm:hidden" />
+                                    <Clock3 size={24} className="hidden sm:block" />
                                 </div>
-                                <div className="flex flex-col">
-                                    <span className="text-base font-black text-gray-950 leading-none">
+                                <div className="flex flex-col min-w-0">
+                                    <span className="text-sm sm:text-base font-black text-gray-950 leading-tight">
                                         Индивидуальный менеджер
                                     </span>
-                                    <span className="text-[13px] font-bold text-gray-500 mt-1">
+                                    <span className="text-[11px] sm:text-[13px] font-bold text-white sm:text-gray-400 mt-0.5">
                                         Персональное сопровождение 24/7
                                     </span>
                                 </div>

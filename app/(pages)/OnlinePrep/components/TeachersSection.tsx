@@ -21,13 +21,13 @@ const teachers: Teacher[] = [
 ];
 
 export default function TeachersSection() {
-  const [swiperInstance, setSwiperInstance]     = useState<SwiperType | null>(null);
-  const [selectedTeacher, setSelectedTeacher]   = useState<Teacher | null>(null);
+  const [swiperInstance, setSwiperInstance]   = useState<SwiperType | null>(null);
+  const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null);
 
   return (
     <>
-      <section className="mb-14">
-        <div className="container mx-auto px-6 lg:px-12">
+      <section className="w-full">
+        <div className="container mx-auto px-4 md:px-6 lg:px-12">
           <SectionHeader
             title="Наши преподаватели"
             subtitle="Профессиональные преподаватели для успешного поступления"
