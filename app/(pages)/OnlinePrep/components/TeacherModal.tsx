@@ -159,16 +159,22 @@ export default function TeacherModal({ teacher, onClose }: TeacherModalProps) {
                   <p className="text-sm font-semibold text-[#101828] mb-2">Выберите дату и время</p>
                   <div className="grid grid-cols-2 gap-3">
                     <input
-                      type="date"
+                      type="text"
+                      placeholder="Выберите дату"
+                      onFocus={(e) => (e.target.type = "date")}
+                      onBlur={(e) => { if (!e.target.value) e.target.type = "text"; }}
                       value={date}
                       onChange={(e) => setDate(e.target.value)}
-                      className="border border-[#EAECF0] rounded-xl px-4 py-2.5 text-sm text-[#344054] focus:outline-none focus:border-[#0047FF] transition-colors"
+                      className="border border-[#EAECF0] rounded-xl px-4 py-2.5 text-sm text-[#344054] placeholder:text-[#98A2B3] focus:outline-none focus:border-[#0047FF] transition-colors"
                     />
                     <input
-                      type="time"
+                      type="text"
+                      placeholder="Выберите время"
+                      onFocus={(e) => (e.target.type = "time")}
+                      onBlur={(e) => { if (!e.target.value) e.target.type = "text"; }}
                       value={time}
                       onChange={(e) => setTime(e.target.value)}
-                      className="border border-[#EAECF0] rounded-xl px-4 py-2.5 text-sm text-[#344054] focus:outline-none focus:border-[#0047FF] transition-colors"
+                      className="border border-[#EAECF0] rounded-xl px-4 py-2.5 text-sm text-[#344054] placeholder:text-[#98A2B3] focus:outline-none focus:border-[#0047FF] transition-colors"
                     />
                   </div>
                 </div>
