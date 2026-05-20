@@ -82,26 +82,26 @@ export default function TeacherModal({ teacher, onClose }: TeacherModalProps) {
 
               <div className="px-6 pb-6 flex flex-col gap-5">
                 {/* Инфо-блоки */}
-                <div className="grid grid-cols-3 gap-2">
-                  <div className="flex items-center gap-2 bg-[#F2F4F7] rounded-xl px-3 py-2.5">
+                <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 justify-items-center">
+                  <div className="w-full flex items-center gap-2 bg-[#F2F4F7] rounded-xl px-3 max-sm:py-1.5 py-2.5">
                     <GraduationCap size={14} className="text-[#0047FF] shrink-0" />
                     <div>
                       <p className="text-[9px] text-[#667085]">Специализация</p>
-                      <p className="text-[10px] font-bold text-[#0047FF] leading-tight">{teacher.subject}</p>
+                      <p className="max-sm:text-[11px] text-[10px] font-bold text-[#0047FF] leading-tight">{teacher.subject}</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2 bg-[#F2F4F7] rounded-xl px-3 py-2.5">
+                  <div className="w-full flex items-center gap-2 bg-[#F2F4F7] rounded-xl px-3 max-sm:py-1.5 py-2.5">
                     <Star size={14} className="text-[#0047FF] shrink-0" />
                     <div>
                       <p className="text-[9px] text-[#667085]">Опыт работы</p>
-                      <p className="text-[10px] font-bold text-[#0047FF] leading-tight">{teacher.exp}</p>
+                      <p className="max-sm:text-[11px] text-[10px] font-bold text-[#0047FF] leading-tight">{teacher.exp}</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2 bg-[#F2F4F7] rounded-xl px-3 py-2.5">
+                  <div className="w-full flex items-center gap-2 bg-[#F2F4F7] rounded-xl px-3 max-sm:py-1.5 py-2.5">
                     <FileText size={14} className="text-[#0047FF] shrink-0" />
                     <div>
                       <p className="text-[9px] text-[#667085]">Сертификаты</p>
-                      <p className="text-[10px] font-bold text-[#0047FF] leading-tight">{teacher.cert}</p>
+                      <p className="max-sm:text-[11px] text-[10px] font-bold text-[#0047FF] leading-tight">{teacher.cert}</p>
                     </div>
                   </div>
                 </div>
@@ -109,47 +109,53 @@ export default function TeacherModal({ teacher, onClose }: TeacherModalProps) {
                 {/* Формат занятия */}
                 <div>
                   <p className="text-sm font-semibold text-[#101828] mb-2">Выберите формат занятия</p>
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                     {/* Индивидуальное */}
                     <button
                       onClick={() => setFormat("individual")}
-                      className={`flex flex-col items-start gap-1 p-4 rounded-xl border-2 text-left transition-colors ${
+                      className={`w-full flex max-sm:flex-row max-sm:items-center max-sm:justify-between flex-col items-start gap-1 max-sm:gap-3 max-sm:py-3 p-4 rounded-xl border-2 text-left transition-colors ${
                         format === "individual"
                           ? "border-[#0047FF] bg-blue-50/50"
                           : "border-[#EAECF0] hover:border-blue-200"
                       }`}
                     >
-                      <div className="flex items-center gap-2 w-full">
+                      <div className="flex items-center gap-2 max-sm:flex-1">
                         <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 ${
                           format === "individual" ? "border-[#0047FF]" : "border-gray-300"
                         }`}>
                           {format === "individual" && <div className="w-2 h-2 rounded-full bg-[#0047FF]" />}
                         </div>
-                        <span className="text-xs font-semibold text-[#101828]">Индивидуальное занятие</span>
+                        <div>
+                          <span className="text-xs font-semibold text-[#101828]">Индивидуальное занятие</span>
+                          <p className="text-[10px] text-[#667085] max-sm:block hidden">Персональное занятие один на один с преподавателем</p>
+                        </div>
                       </div>
-                      <p className="text-[10px] text-[#667085] pl-6">Персональное занятие один на один с преподавателем</p>
-                      <p className="text-sm font-bold text-[#101828] pl-6">{currency}{hourlyRate}/час</p>
+                      <p className="text-[10px] text-[#667085] pl-6 max-sm:hidden">Персональное занятие один на один с преподавателем</p>
+                      <p className="text-sm font-bold text-[#101828] max-sm:pl-0 pl-6 shrink-0">{currency}{hourlyRate}/час</p>
                     </button>
 
                     {/* Пробное */}
                     <button
                       onClick={() => setFormat("trial")}
-                      className={`flex flex-col items-start gap-1 p-4 rounded-xl border-2 text-left transition-colors ${
+                      className={`w-full flex max-sm:flex-row max-sm:items-center max-sm:justify-between flex-col items-start gap-1 max-sm:gap-3 max-sm:py-3 p-4 rounded-xl border-2 text-left transition-colors ${
                         format === "trial"
                           ? "border-[#0047FF] bg-blue-50/50"
                           : "border-[#EAECF0] hover:border-blue-200"
                       }`}
                     >
-                      <div className="flex items-center gap-2 w-full">
+                      <div className="flex items-center gap-2 max-sm:flex-1">
                         <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 ${
                           format === "trial" ? "border-[#0047FF]" : "border-gray-300"
                         }`}>
                           {format === "trial" && <div className="w-2 h-2 rounded-full bg-[#0047FF]" />}
                         </div>
-                        <span className="text-xs font-semibold text-[#101828]">Пробное занятие (30 мин)</span>
+                        <div>
+                          <span className="text-xs font-semibold text-[#101828]">Пробное занятие (30 мин)</span>
+                          <p className="text-[10px] text-[#667085] max-sm:block hidden">Короткое знакомство и оценка уровня</p>
+                        </div>
                       </div>
-                      <p className="text-[10px] text-[#667085] pl-6">Короткое знакомство и оценка уровня</p>
-                      <p className="text-sm font-bold text-[#101828] pl-6">{currency}{trialRate}</p>
+                      <p className="text-[10px] text-[#667085] pl-6 max-sm:hidden">Короткое знакомство и оценка уровня</p>
+                      <p className="text-sm font-bold text-[#101828] max-sm:pl-0 pl-6 shrink-0">{currency}{trialRate}</p>
                     </button>
                   </div>
                 </div>
