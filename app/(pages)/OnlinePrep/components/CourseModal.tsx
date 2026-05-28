@@ -8,7 +8,7 @@ export interface CourseInfo {
   title: string;
   description: string;
   duration: string;
-  price: string;
+  price: string | number;
 }
 
 interface CourseModalProps {
@@ -30,8 +30,8 @@ const levels = [
   { value: "advanced",     label: "Продвинутый (C1–C2)" },
 ];
 
-function parsePrice(price: string): number {
-  return parseInt(price.replace(/[^0-9]/g, ""), 10);
+function parsePrice(price: string | number): number {
+  return parseInt(String(price).replace(/[^0-9]/g, ""), 10);
 }
 
 export default function CourseModal({ course, onClose }: CourseModalProps) {
@@ -44,7 +44,7 @@ export default function CourseModal({ course, onClose }: CourseModalProps) {
   const basePrice    = parsePrice(course.price);
   const discountAmt  = Math.round(basePrice * 0.1);
   const finalPrice   = basePrice - discountAmt;
-  const currency     = course.price.replace(/[0-9,]/g, "").trim() || "$";
+  const currency     = String(course.price).replace(/[0-9,. ]/g, "").trim() || "$";
 
   return (
     <AnimatePresence>

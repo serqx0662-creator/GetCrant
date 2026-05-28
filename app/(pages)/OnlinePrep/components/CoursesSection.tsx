@@ -1,17 +1,57 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { GraduationCap } from "lucide-react";
 import CourseModal, { type CourseInfo } from "./CourseModal";
 
-const courses: (CourseInfo & { id: number; lessons: number; students: number })[] = [
-  { id: 1, title: "TOEFL Preparation",  description: "Комплексная подготовка к экзамену TOEFL",                duration: "12 недель", lessons: 24, students: 45, price: "$600" },
-  { id: 2, title: "IELTS Mastery",       description: "Подготовка к экзамену IELTS с опытными преподавателями", duration: "10 недель", lessons: 20, students: 35, price: "$550" },
-  { id: 3, title: "Cambridge English",   description: "Подготовка к экзаменам Cambridge English",               duration: "14 недель", lessons: 28, students: 30, price: "$650" },
-  { id: 4, title: "Business English",    description: "Курс делового английского для профессионалов",           duration: "8 недель",  lessons: 16, students: 40, price: "$400" },
-];
+// Тип одного курса из Strapi
+interface StrapiCourse {
+  id: number;
+  documentId?: string; // Strapi v5: строковый идентификатор для REST-запросов
+  attributes?: {
+    title?: string;
+    description?: string;
+    duration?: string;
+    lessons?: number;
+    students?: number;
+    price?: string | number;
+  };
+  // Strapi v5 возвращает поля напрямую (без attributes)
+  title?: string;
+  description?: string;
+  duration?: string;
+  lessons?: number;
+  students?: number;
+  price?: string | number;
+}
 
-function CourseCard({ course, onEnroll }: { course: typeof courses[0]; onEnroll: (c: CourseInfo) => void }) {
+// Нормализованный тип для отображения
+// documentId используется в URL при PUT (Strapi v5), id — для React key
+type Course = CourseInfo & { id: number; documentId: string; lessons: number; students: number };
+
+// Приводим ответ Strapi (v4 с attributes или v5 без) к единому виду
+function normalizeCourse(item: StrapiCourse): Course {
+  const attrs = item.attributes ?? item;
+  return {
+    id:          item.id,
+    // v5 даёт documentId, v4 — нет; фоллбэк на строковый id
+    documentId:  item.documentId ?? String(item.id),
+    title:       attrs.title       ?? "Без названия",
+    description: attrs.description ?? "",
+    duration:    attrs.duration    ?? "—",
+    lessons:     attrs.lessons     ?? 0,
+    students:    attrs.students    ?? 0,
+    price:       attrs.price       ?? "—",
+  };
+}
+
+interface CourseCardProps {
+  course: Course;
+  enrolling: boolean;
+  onEnroll: (course: Course) => void;
+}
+
+function CourseCard({ course, enrolling, onEnroll }: CourseCardProps) {
   return (
     <div className="w-full" style={{ padding: "20px", borderRadius: "16px", border: "1px solid #EAECF0", background: "#FFF", display: "flex", flexDirection: "column", gap: "10px" }}>
       <div className="w-8 h-8 rounded-lg bg-[#0047FF] flex items-center justify-center shrink-0">
@@ -37,30 +77,108 @@ function CourseCard({ course, onEnroll }: { course: typeof courses[0]; onEnroll:
       </div>
       <div className="flex justify-between items-center w-full px-1">
         <span className="text-[14px] text-[#667085]">Стоимость</span>
-        <span className="text-[16px] font-bold text-[#101828]">{course.price}</span>
+        <span className="text-[16px] font-bold text-[#101828]">${String(course.price).replace(/^\$/, "")}</span>
       </div>
       <button
         onClick={() => onEnroll(course)}
-        className="w-full py-2 rounded-lg bg-[#0047FF] text-white text-xs font-semibold hover:bg-[#0035CC] transition-colors"
+        disabled={enrolling}
+        className="w-full py-2 rounded-lg bg-[#0047FF] text-white text-xs font-semibold hover:bg-[#0035CC] disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
       >
-        Записаться
+        {enrolling ? "Запись..." : "Записаться"}
       </button>
     </div>
   );
 }
 
 export default function CoursesSection() {
+  const [courses, setCourses]               = useState<Course[]>([]);
+  const [loading, setLoading]               = useState(true);
+  const [error, setError]                   = useState<string | null>(null);
   const [selectedCourse, setSelectedCourse] = useState<CourseInfo | null>(null);
+  // id курса, по которому сейчас идёт PUT-запрос (блокирует кнопку)
+  const [enrollingId, setEnrollingId]       = useState<number | null>(null);
+
+  useEffect(() => {
+    fetch("http://localhost:1337/api/courses?sort=order:asc")
+      .then((res) => {
+        if (!res.ok) throw new Error(`Ошибка сервера: ${res.status}`);
+        return res.json();
+      })
+      .then((json: { data: StrapiCourse[] }) => {
+        setCourses(json.data.map(normalizeCourse));
+      })
+      .catch((err: Error) => {
+        setError(err.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  // Увеличивает счётчик студентов на 1 через PUT и открывает модалку записи
+  async function handleEnroll(course: Course) {
+    setEnrollingId(course.id);
+
+    try {
+      const res = await fetch(`http://localhost:1337/api/courses/${course.documentId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ data: { students: course.students + 1 } }),
+      });
+
+      if (!res.ok) throw new Error(`PUT вернул ${res.status}`);
+
+      // Обновляем локальный state — пользователь сразу видит новое число
+      setCourses((prev) =>
+        prev.map((c) =>
+          c.id === course.id ? { ...c, students: c.students + 1 } : c
+        )
+      );
+
+      // Открываем модалку с актуальными данными (уже с +1 студентом)
+      setSelectedCourse({ ...course, students: course.students + 1 } as CourseInfo);
+    } catch (err) {
+      console.error("Не удалось обновить счётчик студентов:", err);
+      // Даже если PUT упал — всё равно открываем модалку записи
+      setSelectedCourse(course);
+    } finally {
+      setEnrollingId(null);
+    }
+  }
 
   return (
     <>
       <section className="w-full container mx-auto px-4 md:px-6 lg:px-12">
         <h2 className="text-2xl font-bold text-[#101828] mb-6">Популярные курсы</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {courses.map((c) => (
-            <CourseCard key={c.id} course={c} onEnroll={setSelectedCourse} />
-          ))}
-        </div>
+
+        {loading && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div
+                key={i}
+                className="w-full animate-pulse"
+                style={{ padding: "20px", borderRadius: "16px", border: "1px solid #EAECF0", background: "#FFF", minHeight: "260px" }}
+              />
+            ))}
+          </div>
+        )}
+
+        {error && (
+          <p className="text-sm text-red-500">Не удалось загрузить курсы: {error}</p>
+        )}
+
+        {!loading && !error && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {courses.map((c) => (
+              <CourseCard
+                key={c.id}
+                course={c}
+                enrolling={enrollingId === c.id}
+                onEnroll={handleEnroll}
+              />
+            ))}
+          </div>
+        )}
       </section>
 
       <CourseModal

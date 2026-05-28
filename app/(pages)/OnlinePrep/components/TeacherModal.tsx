@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { X, GraduationCap, Star, FileText } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { Teacher } from "./TeacherCard";
@@ -21,10 +20,6 @@ export default function TeacherModal({ teacher, onClose }: TeacherModalProps) {
   const [agreed, setAgreed]   = useState(false);
 
   if (!teacher) return null;
-
-  const hourlyRate = parseInt(teacher.rate.replace(/[^0-9]/g, ""), 10);
-  const trialRate  = Math.round(hourlyRate * 0.5);
-  const currency   = teacher.rate.replace(/[0-9]/g, "").trim() || "$";
 
   const canSubmit = agreed && date && time && name && email;
 
@@ -59,17 +54,16 @@ export default function TeacherModal({ teacher, onClose }: TeacherModalProps) {
               {/* Header */}
               <div className="flex items-start justify-between p-6 pb-4">
                 <div className="flex items-center gap-3">
-                  <Image
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
                     src={teacher.avatar}
                     alt={teacher.name}
-                    width={48}
-                    height={48}
                     className="w-12 h-12 rounded-xl object-cover bg-gray-200 shrink-0"
                   />
                   <div>
                     <p className="text-[10px] text-[#667085] mb-0.5">Записаться к преподавателю</p>
                     <p className="text-lg font-bold text-[#101828] leading-tight">{teacher.name}</p>
-                    <p className="text-xs text-[#667085]">{teacher.subject}</p>
+                    <p className="text-xs text-[#667085]">{teacher.role}</p>
                   </div>
                 </div>
                 <button
@@ -87,21 +81,21 @@ export default function TeacherModal({ teacher, onClose }: TeacherModalProps) {
                     <GraduationCap size={14} className="text-[#0047FF] shrink-0" />
                     <div>
                       <p className="text-[9px] text-[#667085]">Специализация</p>
-                      <p className="max-sm:text-[11px] text-[10px] font-bold text-[#0047FF] leading-tight">{teacher.subject}</p>
+                      <p className="max-sm:text-[11px] text-[10px] font-bold text-[#0047FF] leading-tight">{teacher.role}</p>
                     </div>
                   </div>
                   <div className="w-full flex items-center gap-2 bg-[#F2F4F7] rounded-xl px-3 max-sm:py-1.5 py-2.5">
                     <Star size={14} className="text-[#0047FF] shrink-0" />
                     <div>
                       <p className="text-[9px] text-[#667085]">Опыт работы</p>
-                      <p className="max-sm:text-[11px] text-[10px] font-bold text-[#0047FF] leading-tight">{teacher.exp}</p>
+                      <p className="max-sm:text-[11px] text-[10px] font-bold text-[#0047FF] leading-tight">{teacher.experience}</p>
                     </div>
                   </div>
                   <div className="w-full flex items-center gap-2 bg-[#F2F4F7] rounded-xl px-3 max-sm:py-1.5 py-2.5">
                     <FileText size={14} className="text-[#0047FF] shrink-0" />
                     <div>
                       <p className="text-[9px] text-[#667085]">Сертификаты</p>
-                      <p className="max-sm:text-[11px] text-[10px] font-bold text-[#0047FF] leading-tight">{teacher.cert}</p>
+                      <p className="max-sm:text-[11px] text-[10px] font-bold text-[#0047FF] leading-tight">{teacher.certificates}</p>
                     </div>
                   </div>
                 </div>
@@ -131,7 +125,7 @@ export default function TeacherModal({ teacher, onClose }: TeacherModalProps) {
                         </div>
                       </div>
                       <p className="text-[10px] text-[#667085] pl-6 max-sm:hidden">Персональное занятие один на один с преподавателем</p>
-                      <p className="text-sm font-bold text-[#101828] max-sm:pl-0 pl-6 shrink-0">{currency}{hourlyRate}/час</p>
+                      <p className="text-sm font-bold text-[#101828] max-sm:pl-0 pl-6 shrink-0">{teacher.price}</p>
                     </button>
 
                     {/* Пробное */}
@@ -155,8 +149,7 @@ export default function TeacherModal({ teacher, onClose }: TeacherModalProps) {
                         </div>
                       </div>
                       <p className="text-[10px] text-[#667085] pl-6 max-sm:hidden">Короткое знакомство и оценка уровня</p>
-                      <p className="text-sm font-bold text-[#101828] max-sm:pl-0 pl-6 shrink-0">{currency}{trialRate}</p>
-                    </button>
+                      <p className="text-sm font-bold text-[#101828] max-sm:pl-0 pl-6 shrink-0">{teacher.price}</p>                    </button>
                   </div>
                 </div>
 
