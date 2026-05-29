@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Clock, TrendingUp, Crown } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Mousewheel } from "swiper/modules";
@@ -10,102 +9,89 @@ import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import SectionHeader from "@/app/components/SectionHeader";
 
+const STRAPI = "http://localhost:1337";
+
 // ─── Типы ────────────────────────────────────────────────────────────────────
 
 interface Program {
   id: number;
-  tags: string[];
   title: string;
+  tags: string[];   // уже разбитый массив
   duration: string;
   salary: string;
-  image: string;
+  image: string;    // полный URL
   href: string;
 }
 
-// ─── Данные ──────────────────────────────────────────────────────────────────
+// Сырой объект из Strapi
+interface StrapiProgram {
+  id: number;
+  documentId?: string;
+  // Strapi v5 — поля напрямую
+  title?: string;
+  tags?: string;
+  duration?: string;
+  salary?: string;
+  href?: string;
+  image?: { url?: string } | null;
+  cover?: { url?: string } | null;
+  // Strapi v4 — поля внутри attributes
+  attributes?: {
+    title?: string;
+    tags?: string;
+    duration?: string;
+    salary?: string;
+    href?: string;
+    image?: { data?: { attributes?: { url?: string } } | null } | null;
+    cover?: { data?: { attributes?: { url?: string } } | null } | null;
+  };
+}
 
-const programs: Program[] = [
-  {
-    id: 1,
-    title: "Computer Science",
-    tags: ["Software Engineer", "Data Scientist"],
-    image: "/image/HomeContent/Popular-programs/Rectangle 1.png",
-    duration: "4 года", salary: "$85,000",
-    href: "https://ru.wikipedia.org/wiki/Информатика",
-  },
-  {
-    id: 2,
-    title: "Web Developer",
-    tags: ["Product Manager", "UX Designer"],
-    image: "/image/HomeContent/Popular-programs/Rectangle 2.png",
-    duration: "3 года", salary: "$90,000",
-    href: "https://ru.wikipedia.org/wiki/Веб-разработка",
-  },
-  {
-    id: 3,
-    title: "System Administrator",
-    tags: ["DevOps Engineer", "Business Analyst"],
-    image: "/image/HomeContent/Popular-programs/Rectangle 3.png",
-    duration: "5 лет", salary: "$95,000",
-    href: "https://ru.wikipedia.org/wiki/Системный_администратор",
-  },
-  {
-    id: 4,
-    title: "Mobile Developer",
-    tags: ["Frontend Developer", "Data Analyst"],
-    image: "/image/HomeContent/Popular-programs/Rectangle 4.png",
-    duration: "2 года", salary: "$75,000",
-    href: "https://ru.wikipedia.org/wiki/Мобильная_разработка",
-  },
-  {
-    id: 5,
-    title: "Backend Developer",
-    tags: ["Backend Architecture", "API Design"],
-    image: "/image/HomeContent/Popular-programs/d26c693a1878b9c7da4edec96d65aa6b686c6b6d.jpg",
-    duration: "4 года", salary: "$80,000",
-    href: "https://ru.wikipedia.org/wiki/Бэкенд",
-  },
-  {
-    id: 6,
-    title: "Game Developer",
-    tags: ["Game Design", "C++"],
-    image: "/image/HomeContent/Popular-programs/Rectangle 1.png",
-    duration: "4 года", salary: "$90,000",
-    href: "https://ru.wikipedia.org/wiki/Разработка_компьютерных_игр",
-  },
-  {
-    id: 7,
-    title: "Cybersecurity",
-    tags: ["Network Security", "Ethical Hacking"],
-    image: "/image/HomeContent/Popular-programs/Rectangle 2.png",
-    duration: "4 года", salary: "$95,000",
-    href: "https://ru.wikipedia.org/wiki/Информационная_безопасность",
-  },
-  {
-    id: 8,
-    title: "Artificial Intelligence",
-    tags: ["Python", "Neural Networks"],
-    image: "/image/HomeContent/Popular-programs/Rectangle 3.png",
-    duration: "4 года", salary: "$105,000",
-    href: "https://ru.wikipedia.org/wiki/Искусственный_интеллект",
-  },
-  {
-    id: 9,
-    title: "Data Engineer",
-    tags: ["Big Data", "ETL Developer"],
-    image: "/image/HomeContent/Popular-programs/Rectangle 4.png",
-    duration: "3 года", salary: "$100,000",
-    href: "https://ru.wikipedia.org/wiki/Инженерия_данных",
-  },
-  {
-    id: 10,
-    title: "Cloud Architect",
-    tags: ["AWS", "Cloud Infrastructure"],
-    image: "/image/HomeContent/Popular-programs/d26c693a1878b9c7da4edec96d65aa6b686c6b6d.jpg",
-    duration: "5 лет", salary: "$110,000",
-    href: "https://ru.wikipedia.org/wiki/Облачные_вычисления",
-  },
-];
+// ─── Нормализация ─────────────────────────────────────────────────────────────
+
+function normalizeProgram(item: StrapiProgram): Program {
+  const isV4 = !!item.attributes;
+  const a    = item.attributes;
+
+  const title    = isV4 ? a?.title    : item.title;
+  const tags     = isV4 ? a?.tags     : item.tags;
+  const duration = isV4 ? a?.duration : item.duration;
+  const salary   = isV4 ? a?.salary   : item.salary;
+  const href     = isV4 ? a?.href     : item.href;
+
+  // Пробуем cover, потом image — для v4 и v5
+  let rawUrl: string | undefined;
+  if (isV4) {
+    rawUrl =
+      a?.cover?.data?.attributes?.url ??
+      a?.image?.data?.attributes?.url;
+  } else {
+    // v5: поле может быть объектом { url } или вложенным { formats, url }
+    const mediaObj = (item.cover ?? item.image) as Record<string, unknown> | null | undefined;
+    if (mediaObj) {
+      if (typeof mediaObj.url === "string") {
+        rawUrl = mediaObj.url;
+      } else if (mediaObj.formats && typeof mediaObj.formats === "object") {
+        const fmt = mediaObj.formats as Record<string, { url?: string }>;
+        rawUrl = fmt.large?.url ?? fmt.medium?.url ?? fmt.small?.url ?? fmt.thumbnail?.url;
+      }
+    }
+  }
+
+  const imageUrl = rawUrl
+    ? rawUrl.startsWith("http") ? rawUrl : `${STRAPI}${rawUrl}`
+    : "";
+
+  return {
+    id:       item.id,
+    title:    title    ?? "Без названия",
+    tags:     tags ? tags.split(",").map((t) => t.trim()).filter(Boolean) : [],
+    duration: duration ?? "—",
+    salary:   salary   ?? "—",
+    image:    imageUrl,
+    href:     href     ?? "#",
+  };
+}
 
 // ─── Карточка ─────────────────────────────────────────────────────────────────
 
@@ -120,12 +106,11 @@ function ProgramCard({ program }: { program: Program }) {
       {/* Изображение */}
       <div className="relative w-full h-40 rounded-xl overflow-hidden bg-slate-200">
         {program.image ? (
-          <Image
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
             src={program.image}
             alt={program.title}
-            fill
-            className="object-cover scale-100 transition-transform duration-500 ease-out group-hover:scale-110"
-            sizes="300px"
+            className="w-full h-full object-cover scale-100 transition-transform duration-500 ease-out group-hover:scale-110"
           />
         ) : (
           <div className="w-full h-full bg-slate-200" />
@@ -138,7 +123,10 @@ function ProgramCard({ program }: { program: Program }) {
       {/* Теги */}
       <div className="flex flex-wrap gap-1">
         {program.tags.map((tag) => (
-          <span key={tag} className="text-[10px] font-medium text-blue-600 border border-slate-200 bg-transparent px-2 py-0.5 rounded-full">
+          <span
+            key={tag}
+            className="text-[10px] font-medium text-blue-600 border border-slate-200 bg-transparent px-2 py-0.5 rounded-full"
+          >
             {tag}
           </span>
         ))}
@@ -162,10 +150,48 @@ function ProgramCard({ program }: { program: Program }) {
   );
 }
 
+// ─── Скелетон ─────────────────────────────────────────────────────────────────
+
+function ProgramSkeleton() {
+  return (
+    <div className="flex flex-col w-75 p-2.5 pb-5 gap-2.5 rounded-2xl border border-[#EAECF0] bg-white animate-pulse">
+      <div className="w-full h-40 rounded-xl bg-slate-200" />
+      <div className="flex gap-1">
+        <div className="h-5 w-20 rounded-full bg-slate-200" />
+        <div className="h-5 w-16 rounded-full bg-slate-200" />
+      </div>
+      <div className="h-4 w-3/4 rounded bg-slate-200" />
+      <div className="h-3 w-1/2 rounded bg-slate-200" />
+    </div>
+  );
+}
+
 // ─── Секция ───────────────────────────────────────────────────────────────────
 
 export default function PopularPrograms() {
   const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
+  const [programs, setPrograms]             = useState<Program[]>([]);
+  const [loading, setLoading]               = useState(true);
+  const [error, setError]                   = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch(`${STRAPI}/api/programs?populate=*`)
+      .then((res) => {
+        if (!res.ok) throw new Error(`Ошибка сервера: ${res.status}`);
+        return res.json();
+      })
+      .then((json: { data: StrapiProgram[] }) => {
+        setPrograms(json.data.map(normalizeProgram));
+      })
+      .catch((err: Error) => {
+        setError(err.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  const skeletons = Array.from({ length: 5 });
 
   return (
     <section className="py-12">
@@ -176,23 +202,33 @@ export default function PopularPrograms() {
           onPrev={() => swiperInstance?.slidePrev()}
           onNext={() => swiperInstance?.slideNext()}
         />
+        {error && (
+          <p className="text-sm text-red-500 mb-4">Не удалось загрузить программы: {error}</p>
+        )}
       </div>
 
       <Swiper
         modules={[Navigation, Mousewheel]}
         onSwiper={setSwiperInstance}
-        loop={true}
+        loop={!loading && programs.length > 1}
         mousewheel={{ forceToAxis: true, sensitivity: 1 }}
         slidesPerView="auto"
         spaceBetween={20}
         grabCursor={true}
         className="px-6! lg:px-12! pb-4!"
       >
-        {programs.map((p) => (
-          <SwiperSlide key={p.id} style={{ width: "auto" }}>
-            <ProgramCard program={p} />
-          </SwiperSlide>
-        ))}
+        {loading
+          ? skeletons.map((_, i) => (
+              <SwiperSlide key={i} style={{ width: "auto" }}>
+                <ProgramSkeleton />
+              </SwiperSlide>
+            ))
+          : programs.map((p) => (
+              <SwiperSlide key={p.id} style={{ width: "auto" }}>
+                <ProgramCard program={p} />
+              </SwiperSlide>
+            ))
+        }
       </Swiper>
     </section>
   );

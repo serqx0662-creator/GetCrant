@@ -1,40 +1,92 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BookOpen, Users, MapPin } from "lucide-react";
-import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Mousewheel } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import SectionHeader from "@/app/components/SectionHeader";
 
+const STRAPI = "http://localhost:1337";
+
 // ─── Типы ────────────────────────────────────────────────────────────────────
 
 interface University {
   id: number;
   name: string;
-  programs: string;
-  students: string;
+  programsCount: string;
+  studentsCount: string;
   location: string;
-  image: string;
+  imageUrl: string;
   href: string;
 }
 
-// ─── Данные ──────────────────────────────────────────────────────────────────
+// Сырой объект из Strapi
+interface StrapiUniversity {
+  id: number;
+  documentId?: string;
+  // Strapi v5 — поля напрямую
+  name?: string;
+  programsCount?: string;
+  studentsCount?: string;
+  location?: string;
+  href?: string;
+  image?: { url?: string; formats?: Record<string, { url?: string }> } | null;
+  // Strapi v4 — поля внутри attributes
+  attributes?: {
+    name?: string;
+    programsCount?: string;
+    studentsCount?: string;
+    location?: string;
+    href?: string;
+    image?: { data?: { attributes?: { url?: string } } | null } | null;
+  };
+}
 
-const universities: University[] = [
-  { id: 1,  name: "Harvard University",                 programs: "120 программ", students: "23 000", location: "Cambridge, MA, США",       image: "/image/HomeContent/Partner-universities/Univer 1.png",    /* Harvard University */        href: "https://ru.wikipedia.org/wiki/Гарвардский_университет" },
-  { id: 2,  name: "Stanford University",                programs: "150 программ", students: "22 000", location: "Stanford, CA, США",        image: "/image/HomeContent/Partner-universities/Univer 2.png",   /* Stanford University */       href: "https://ru.wikipedia.org/wiki/Стэнфордский_университет" },
-  { id: 3,  name: "MIT",                                programs: "120 программ", students: "11 000", location: "Cambridge, MA, США",       image: "/image/HomeContent/Partner-universities/Univer 3.png",        /* MIT */                       href: "https://ru.wikipedia.org/wiki/Массачусетский_технологический_институт" },
-  { id: 4,  name: "University of California, Berkeley", programs: "140 программ", students: "30 000", location: "Berkeley, CA, США",        image: "/image/HomeContent/Partner-universities/Univer 4.png",   /* UC Berkeley */               href: "https://ru.wikipedia.org/wiki/Калифорнийский_университет_в_Беркли" },
-  { id: 5,  name: "Princeton University",               programs: "90 программ",  students: "8 000",  location: "Princeton, NJ, США",       image: "/image/HomeContent/Partner-universities/Univer 1.png",  /* Princeton University */      href: "https://ru.wikipedia.org/wiki/Принстонский_университет" },
-  { id: 6,  name: "Oxford University",                  programs: "150 программ", students: "24 000", location: "Oxford, Великобритания",   image: "/image/HomeContent/Partner-universities/Univer 2.png",     /* University of Oxford */      href: "https://ru.wikipedia.org/wiki/Оксфордский_университет" },
-  { id: 7,  name: "Cambridge University",               programs: "180 программ", students: "21 000", location: "Cambridge, Великобритания",image: "/image/HomeContent/Partner-universities/Univer 3.png",  /* University of Cambridge */   href: "https://ru.wikipedia.org/wiki/Кембриджский_университет" },
-  { id: 8,  name: "ETH Zurich",                         programs: "95 программ",  students: "22 000", location: "Цюрих, Швейцария",         image: "/image/HomeContent/Partner-universities/Univer 4.png", /* ETH Zurich */                href: "https://ru.wikipedia.org/wiki/Швейцарская_высшая_техническая_школа_Цюриха" },
-  { id: 9,  name: "University of Toronto",              programs: "130 программ", students: "97 000", location: "Торонто, Канада",          image: "/image/HomeContent/Partner-universities/Univer 1.png",    /* University of Toronto */     href: "https://ru.wikipedia.org/wiki/Университет_Торонто" },
-  { id: 10, name: "University of Melbourne",            programs: "100 программ", students: "52 000", location: "Мельбурн, Австралия",      image: "/image/HomeContent/Partner-universities/Univer 2.png",  /* University of Melbourne */   href: "https://ru.wikipedia.org/wiki/Мельбурнский_университет" },
-];
+// ─── Нормализация ─────────────────────────────────────────────────────────────
+
+function extractUrl(
+  media: { url?: string; formats?: Record<string, { url?: string }> } | null | undefined
+): string {
+  if (!media) return "";
+  if (typeof media.url === "string") return media.url;
+  if (media.formats) {
+    const f = media.formats;
+    return f.large?.url ?? f.medium?.url ?? f.small?.url ?? f.thumbnail?.url ?? "";
+  }
+  return "";
+}
+
+function toFullUrl(raw: string): string {
+  if (!raw) return "";
+  return raw.startsWith("http") ? raw : `${STRAPI}${raw}`;
+}
+
+function normalizeUniversity(item: StrapiUniversity): University {
+  const isV4 = !!item.attributes;
+  const a    = item.attributes;
+
+  const name          = isV4 ? a?.name          : item.name;
+  const programsCount = isV4 ? a?.programsCount : item.programsCount;
+  const studentsCount = isV4 ? a?.studentsCount : item.studentsCount;
+  const location      = isV4 ? a?.location      : item.location;
+  const href          = isV4 ? a?.href          : item.href;
+
+  const rawImage = isV4
+    ? a?.image?.data?.attributes?.url ?? ""
+    : extractUrl(item.image);
+
+  return {
+    id:            item.id,
+    name:          name          ?? "—",
+    programsCount: programsCount ?? "—",
+    studentsCount: studentsCount ?? "—",
+    location:      location      ?? "—",
+    imageUrl:      toFullUrl(rawImage),
+    href:          href          ?? "#",
+  };
+}
 
 // ─── Карточка ─────────────────────────────────────────────────────────────────
 
@@ -42,12 +94,17 @@ function UniversityCard({ university }: { university: University }) {
   return (
     <div
       className="group flex flex-col w-[300px] p-[10px] pb-[20px] gap-[10px] rounded-2xl border border-[#EAECF0] bg-white transition-all duration-300 hover:-translate-y-2 hover:shadow-xl cursor-pointer"
-      onClick={() => window.open(university.href, '_blank')}
+      onClick={() => window.open(university.href, "_blank")}
     >
       {/* Фото */}
       <div className="relative w-full h-[160px] rounded-xl overflow-hidden bg-slate-200">
-        {university.image ? (
-          <Image src={university.image} alt={university.name} fill className="object-cover scale-100 transition-transform duration-500 ease-out group-hover:scale-110" sizes="300px" />
+        {university.imageUrl ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={university.imageUrl}
+            alt={university.name}
+            className="w-full h-full object-cover scale-100 transition-transform duration-500 ease-out group-hover:scale-110"
+          />
         ) : (
           <div className="w-full h-full bg-slate-200" />
         )}
@@ -62,15 +119,15 @@ function UniversityCard({ university }: { university: University }) {
         <div className="flex items-center gap-3 text-xs text-[#344054]">
           <span className="flex items-center gap-1">
             <BookOpen size={13} className="text-[#1570EF]" />
-            {university.programs}
+            {university.programsCount}
           </span>
           <span className="flex items-center gap-1">
             <Users size={13} className="text-[#1570EF]" />
-            {university.students}
+            {university.studentsCount}
           </span>
         </div>
 
-        {/* Местоположение — кликабельная ссылка на Google Maps */}
+        {/* Местоположение */}
         <div className="flex items-center gap-1 text-xs text-[#1D2939]">
           <MapPin size={12} className="text-[#1D2939] shrink-0" />
           <a
@@ -88,10 +145,45 @@ function UniversityCard({ university }: { university: University }) {
   );
 }
 
+// ─── Скелетон ─────────────────────────────────────────────────────────────────
+
+function UniversitySkeleton() {
+  return (
+    <div className="flex flex-col w-[300px] p-[10px] pb-[20px] gap-[10px] rounded-2xl border border-[#EAECF0] bg-white animate-pulse">
+      <div className="w-full h-[160px] rounded-xl bg-slate-200" />
+      <div className="flex flex-col gap-2">
+        <div className="h-4 w-3/4 rounded bg-slate-200" />
+        <div className="h-3 w-1/2 rounded bg-slate-200" />
+        <div className="h-3 w-2/3 rounded bg-slate-200" />
+      </div>
+    </div>
+  );
+}
+
 // ─── Секция ───────────────────────────────────────────────────────────────────
 
 export default function PartnerUniversities() {
   const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
+  const [universities, setUniversities]     = useState<University[]>([]);
+  const [loading, setLoading]               = useState(true);
+  const [error, setError]                   = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch(`${STRAPI}/api/partner-universities?populate=*`)
+      .then((res) => {
+        if (!res.ok) throw new Error(`Ошибка сервера: ${res.status}`);
+        return res.json();
+      })
+      .then((json: { data: StrapiUniversity[] }) => {
+        setUniversities(json.data.map(normalizeUniversity));
+      })
+      .catch((err: Error) => {
+        setError(err.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
 
   return (
     <section className="py-12">
@@ -102,23 +194,33 @@ export default function PartnerUniversities() {
           onPrev={() => swiperInstance?.slidePrev()}
           onNext={() => swiperInstance?.slideNext()}
         />
+        {error && (
+          <p className="text-sm text-red-500 mb-4">Не удалось загрузить университеты: {error}</p>
+        )}
       </div>
 
       <Swiper
         modules={[Navigation, Mousewheel]}
         onSwiper={setSwiperInstance}
-        loop={true}
+        loop={!loading && universities.length > 1}
         mousewheel={{ forceToAxis: true, sensitivity: 1 }}
         slidesPerView="auto"
         spaceBetween={20}
         grabCursor={true}
         className="!px-6 lg:!px-12 !pb-4"
       >
-        {universities.map((u) => (
-          <SwiperSlide key={u.id} style={{ width: "auto" }}>
-            <UniversityCard university={u} />
-          </SwiperSlide>
-        ))}
+        {loading
+          ? Array.from({ length: 5 }).map((_, i) => (
+              <SwiperSlide key={i} style={{ width: "auto" }}>
+                <UniversitySkeleton />
+              </SwiperSlide>
+            ))
+          : universities.map((u) => (
+              <SwiperSlide key={u.id} style={{ width: "auto" }}>
+                <UniversityCard university={u} />
+              </SwiperSlide>
+            ))
+        }
       </Swiper>
     </section>
   );
