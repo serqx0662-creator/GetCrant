@@ -1,5 +1,6 @@
-import type { Program } from "../data/ mockPrograms";
+import type { Program } from "../data/program";
 import ProgramCard from "./ProgramCard";
+import Link from "next/link";
 
 interface ProgramsGridProps {
     programs: Program[];
@@ -31,7 +32,13 @@ export default function ProgramsGrid({
             {/* Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {programs.map((program) => (
-                    <ProgramCard key={program.id} program={program} />
+                    <Link 
+                        key={program.id} 
+                        href={`/Programs/${program.documentId ?? program.id}`}
+                        className="block"
+                    >
+                        <ProgramCard program={program} />
+                    </Link>
                 ))}
             </div>
 

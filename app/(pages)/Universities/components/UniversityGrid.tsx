@@ -1,4 +1,4 @@
-import type { University } from "../data/mockUniversities";
+import type { University } from "../data/university";
 import UniversityCard from "./UniversityCard";
 
 interface UniversityGridProps {

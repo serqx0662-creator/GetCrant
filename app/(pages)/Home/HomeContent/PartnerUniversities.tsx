@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { BookOpen, Users, MapPin } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Mousewheel } from "swiper/modules";
@@ -14,6 +15,7 @@ const STRAPI = "http://localhost:1337";
 
 interface University {
   id: number;
+  documentId: string;
   name: string;
   programsCount: string;
   studentsCount: string;
@@ -79,6 +81,7 @@ function normalizeUniversity(item: StrapiUniversity): University {
 
   return {
     id:            item.id,
+    documentId:    item.documentId ?? String(item.id),
     name:          name          ?? "—",
     programsCount: programsCount ?? "—",
     studentsCount: studentsCount ?? "—",
@@ -92,9 +95,9 @@ function normalizeUniversity(item: StrapiUniversity): University {
 
 function UniversityCard({ university }: { university: University }) {
   return (
-    <div
-      className="group flex flex-col w-[300px] p-[10px] pb-[20px] gap-[10px] rounded-2xl border border-[#EAECF0] bg-white transition-all duration-300 hover:-translate-y-2 hover:shadow-xl cursor-pointer"
-      onClick={() => window.open(university.href, "_blank")}
+    <Link
+      href="/Universities"
+      className="group flex flex-col w-[300px] p-[10px] pb-[20px] gap-[10px] rounded-2xl border border-[#EAECF0] bg-white transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
     >
       {/* Фото */}
       <div className="relative w-full h-[160px] rounded-xl overflow-hidden bg-slate-200">
@@ -130,22 +133,14 @@ function UniversityCard({ university }: { university: University }) {
         {/* Местоположение */}
         <div className="flex items-center gap-1 text-xs text-[#1D2939]">
           <MapPin size={12} className="text-[#1D2939] shrink-0" />
-          <a
-            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(university.location)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
-            className="hover:text-blue-500 transition-colors cursor-pointer"
-          >
+          <span className="hover:text-blue-500 transition-colors">
             {university.location}
-          </a>
+          </span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
-
-// ─── Скелетон ─────────────────────────────────────────────────────────────────
 
 function UniversitySkeleton() {
   return (
@@ -225,3 +220,5 @@ export default function PartnerUniversities() {
     </section>
   );
 }
+
+// ─── Скелетон ─────────────────────────────────────────────────────────────────

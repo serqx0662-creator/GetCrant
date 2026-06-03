@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { BookOpen, Users, MapPin } from "lucide-react";
 import type { University } from "./types";
@@ -14,12 +13,11 @@ function UniversityCard({ u }: { u: University }) {
       onClick={() => window.open(u.href, "_blank")}
     >
       <div className="relative w-full h-[160px] rounded-xl overflow-hidden bg-slate-200">
-        <Image
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
           src={u.image}
           alt={u.name}
-          fill
-          className="object-cover transition-transform duration-500 group-hover:scale-110"
-          sizes="(max-width: 768px) 100vw, 300px"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
       </div>
       <div className="flex flex-col gap-y-[8px]">

@@ -156,7 +156,7 @@ export default function TeacherModal({ teacher, onClose }: TeacherModalProps) {
                 {/* Дата и время */}
                 <div>
                   <p className="text-sm font-semibold text-[#101828] mb-2">Выберите дату и время</p>
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="flex flex-col sm:grid sm:grid-cols-2 gap-3">
                     <input
                       type="text"
                       placeholder="Выберите дату"
@@ -164,7 +164,7 @@ export default function TeacherModal({ teacher, onClose }: TeacherModalProps) {
                       onBlur={(e) => { if (!e.target.value) e.target.type = "text"; }}
                       value={date}
                       onChange={(e) => setDate(e.target.value)}
-                      className="border border-[#EAECF0] rounded-xl px-4 py-2.5 text-sm text-[#344054] placeholder:text-[#98A2B3] focus:outline-none focus:border-[#0047FF] transition-colors"
+                      className="w-full border border-[#EAECF0] rounded-xl px-4 py-2.5 text-sm text-[#344054] placeholder:text-[#98A2B3] focus:outline-none focus:border-[#0047FF] transition-colors"
                     />
                     <input
                       type="text"
@@ -173,7 +173,7 @@ export default function TeacherModal({ teacher, onClose }: TeacherModalProps) {
                       onBlur={(e) => { if (!e.target.value) e.target.type = "text"; }}
                       value={time}
                       onChange={(e) => setTime(e.target.value)}
-                      className="border border-[#EAECF0] rounded-xl px-4 py-2.5 text-sm text-[#344054] placeholder:text-[#98A2B3] focus:outline-none focus:border-[#0047FF] transition-colors"
+                      className="w-full border border-[#EAECF0] rounded-xl px-4 py-2.5 text-sm text-[#344054] placeholder:text-[#98A2B3] focus:outline-none focus:border-[#0047FF] transition-colors"
                     />
                   </div>
                 </div>
@@ -181,20 +181,20 @@ export default function TeacherModal({ teacher, onClose }: TeacherModalProps) {
                 {/* Контакты */}
                 <div>
                   <p className="text-sm font-semibold text-[#101828] mb-2">Ваши контакты</p>
-                  <div className="grid grid-cols-2 gap-3 mb-3">
+                  <div className="flex flex-col sm:grid sm:grid-cols-2 gap-3 mb-3">
                     <input
                       type="text"
                       placeholder="Как к вам обращаться?"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="border border-[#EAECF0] rounded-xl px-4 py-2.5 text-sm text-[#344054] placeholder:text-[#98A2B3] focus:outline-none focus:border-[#0047FF] transition-colors"
+                      className="w-full border border-[#EAECF0] rounded-xl px-4 py-2.5 text-sm text-[#344054] placeholder:text-[#98A2B3] focus:outline-none focus:border-[#0047FF] transition-colors"
                     />
                     <input
                       type="email"
                       placeholder="email@example.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="border border-[#EAECF0] rounded-xl px-4 py-2.5 text-sm text-[#344054] placeholder:text-[#98A2B3] focus:outline-none focus:border-[#0047FF] transition-colors"
+                      className="w-full border border-[#EAECF0] rounded-xl px-4 py-2.5 text-sm text-[#344054] placeholder:text-[#98A2B3] focus:outline-none focus:border-[#0047FF] transition-colors"
                     />
                   </div>
                   <div>
@@ -226,16 +226,16 @@ export default function TeacherModal({ teacher, onClose }: TeacherModalProps) {
                 </label>
 
                 {/* Кнопки */}
-                <div className="grid grid-cols-2 gap-3">
+                <div className="flex flex-col sm:grid sm:grid-cols-2 gap-3">
                   <button
                     onClick={onClose}
-                    className="py-2.5 rounded-xl border border-[#EAECF0] text-sm font-semibold text-[#344054] hover:bg-gray-50 transition-colors"
+                    className="w-full py-2.5 rounded-xl border border-[#EAECF0] text-sm font-semibold text-[#344054] hover:bg-gray-50 transition-colors"
                   >
                     Отменить
                   </button>
                   <button
                     disabled={!canSubmit}
-                    className="py-2.5 rounded-xl bg-[#0047FF] text-white text-sm font-semibold hover:bg-[#0035CC] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    className="w-full py-2.5 rounded-xl bg-[#0047FF] text-white text-sm font-semibold hover:bg-[#0035CC] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                   >
                     Подтвердить запись
                   </button>

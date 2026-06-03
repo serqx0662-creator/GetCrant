@@ -73,7 +73,7 @@ export default function ConsultationModal({ isOpen, onClose }: ConsultationModal
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               {/* Имя + Email */}
-              <div className="grid grid-cols-2 gap-3">
+              <div className="flex flex-col sm:grid sm:grid-cols-2 gap-3">
                 <div className="flex flex-col gap-1.5">
                   <label className="text-xs font-medium text-[#344054]">Имя</label>
                   <input
@@ -81,7 +81,7 @@ export default function ConsultationModal({ isOpen, onClose }: ConsultationModal
                     type="text"
                     required
                     placeholder="Как к вам обращаться?"
-                    className="h-10 px-3 rounded-[8px] border border-[#D0D5DD] text-sm text-[#101828] placeholder:text-[#98A2B3] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/30 focus:border-[#2563EB] transition"
+                    className="w-full h-10 px-3 rounded-[8px] border border-[#D0D5DD] text-sm text-[#101828] placeholder:text-[#98A2B3] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/30 focus:border-[#2563EB] transition"
                   />
                 </div>
                 <div className="flex flex-col gap-1.5">
@@ -90,7 +90,7 @@ export default function ConsultationModal({ isOpen, onClose }: ConsultationModal
                     type="email"
                     required
                     placeholder="email@example.com"
-                    className="h-10 px-3 rounded-[8px] border border-[#D0D5DD] text-sm text-[#101828] placeholder:text-[#98A2B3] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/30 focus:border-[#2563EB] transition"
+                    className="w-full h-10 px-3 rounded-[8px] border border-[#D0D5DD] text-sm text-[#101828] placeholder:text-[#98A2B3] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/30 focus:border-[#2563EB] transition"
                   />
                 </div>
               </div>
@@ -136,18 +136,18 @@ export default function ConsultationModal({ isOpen, onClose }: ConsultationModal
               </label>
 
               {/* Кнопки */}
-              <div className="grid grid-cols-2 gap-3 pt-1">
+              <div className="flex flex-col sm:grid sm:grid-cols-2 gap-3 pt-1">
                 <button
                   type="button"
                   onClick={onClose}
-                  className="h-10 rounded-[8px] border border-[#D0D5DD] text-sm font-semibold text-[#344054] bg-white hover:bg-[#F9FAFB] transition-colors"
+                  className="w-full h-10 rounded-[8px] border border-[#D0D5DD] text-sm font-semibold text-[#344054] bg-white hover:bg-[#F9FAFB] transition-colors"
                 >
                   Отменить
                 </button>
                 <button
                   type="submit"
                   disabled={!agreed}
-                  className="h-10 rounded-[8px] bg-[#2563EB] text-sm font-semibold text-white hover:bg-[#1D4ED8] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="w-full h-10 rounded-[8px] bg-[#2563EB] text-sm font-semibold text-white hover:bg-[#1D4ED8] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   Отправить
                 </button>

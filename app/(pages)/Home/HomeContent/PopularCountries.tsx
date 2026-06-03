@@ -15,13 +15,14 @@ const STRAPI = "http://localhost:1337";
 
 interface Country {
   id: number;
+  documentId: string;
   name: string;
   nameEn: string;
-  flagUrl: string;   // полный URL флага
-  imageUrl: string;  // полный URL фона карточки
+  flagUrl: string;
+  imageUrl: string;
   universitiesCount: string;
   studentsCount: string;
-  benefits: string[]; // уже разбитый массив
+  benefits: string[];
   href: string;
 }
 
@@ -91,13 +92,13 @@ function normalizeCountry(item: StrapiCountry): Country {
 
   return {
     id:                item.id,
+    documentId:        item.documentId ?? String(item.id),
     name:              name              ?? "—",
     nameEn:            nameEn            ?? "",
     imageUrl:          toFullUrl(rawImage),
     flagUrl:           toFullUrl(rawFlag),
     universitiesCount: universitiesCount ?? "—",
     studentsCount:     studentsCount     ?? "—",
-    // разбиваем по переносу строки, убираем пустые строки
     benefits:          features
       ? features.split("\n").map((s) => s.trim()).filter(Boolean)
       : [],
@@ -110,8 +111,7 @@ function normalizeCountry(item: StrapiCountry): Country {
 function CountryCard({ country }: { country: Country }) {
   return (
     <Link
-      href={country.href}
-      {...(country.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      href={`/Countries/${country.documentId}`}
       className="group flex flex-col w-[300px] p-[10px] pb-[20px] gap-[10px] rounded-2xl border border-[#EAECF0] bg-white transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
     >
       {/* Фон карточки с оверлеем */}

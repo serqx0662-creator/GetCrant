@@ -91,7 +91,7 @@ export default function CourseModal({ course, onClose }: CourseModalProps) {
 
               <div className="px-6 pb-6 flex flex-col gap-5">
                 {/* Инфо-блоки */}
-                <div className="grid grid-cols-2 gap-3">
+                <div className="flex flex-col sm:grid sm:grid-cols-2 gap-3">
                   <div className="flex items-center gap-2 bg-[#F2F4F7] rounded-xl px-4 py-3">
                     <Calendar size={16} className="text-[#0047FF] shrink-0" />
                     <div>
@@ -179,16 +179,16 @@ export default function CourseModal({ course, onClose }: CourseModalProps) {
                 </label>
 
                 {/* Кнопки */}
-                <div className="grid grid-cols-2 gap-3">
+                <div className="flex flex-col sm:grid sm:grid-cols-2 gap-3">
                   <button
                     onClick={onClose}
-                    className="py-2.5 rounded-xl border border-[#EAECF0] text-sm font-semibold text-[#344054] hover:bg-gray-50 transition-colors"
+                    className="w-full py-2.5 rounded-xl border border-[#EAECF0] text-sm font-semibold text-[#344054] hover:bg-gray-50 transition-colors"
                   >
                     Отменить
                   </button>
                   <button
                     disabled={!agreed || !timeSlot}
-                    className="py-2.5 rounded-xl bg-[#0047FF] text-white text-sm font-semibold hover:bg-[#0035CC] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    className="w-full py-2.5 rounded-xl bg-[#0047FF] text-white text-sm font-semibold hover:bg-[#0035CC] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                   >
                     Перейти к оплате
                   </button>

@@ -15,11 +15,12 @@ const STRAPI = "http://localhost:1337";
 
 interface Program {
   id: number;
+  documentId: string;
   title: string;
-  tags: string[];   // уже разбитый массив
+  tags: string[];
   duration: string;
   salary: string;
-  image: string;    // полный URL
+  image: string;
   href: string;
 }
 
@@ -84,6 +85,7 @@ function normalizeProgram(item: StrapiProgram): Program {
 
   return {
     id:       item.id,
+    documentId: item.documentId ?? String(item.id),
     title:    title    ?? "Без названия",
     tags:     tags ? tags.split(",").map((t) => t.trim()).filter(Boolean) : [],
     duration: duration ?? "—",
@@ -97,12 +99,7 @@ function normalizeProgram(item: StrapiProgram): Program {
 
 function ProgramCard({ program }: { program: Program }) {
   return (
-    <Link
-      href={program.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group flex flex-col w-75 p-2.5 pb-5 gap-2.5 rounded-2xl border border-[#EAECF0] bg-white transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
-    >
+    <div className="group flex flex-col w-75 p-2.5 pb-5 gap-2.5 rounded-2xl border border-[#EAECF0] bg-white transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
       {/* Изображение */}
       <div className="relative w-full h-40 rounded-xl overflow-hidden bg-slate-200">
         {program.image ? (
@@ -146,7 +143,7 @@ function ProgramCard({ program }: { program: Program }) {
           {program.salary}
         </span>
       </div>
-    </Link>
+    </div>
   );
 }
 
@@ -225,7 +222,9 @@ export default function PopularPrograms() {
             ))
           : programs.map((p) => (
               <SwiperSlide key={p.id} style={{ width: "auto" }}>
-                <ProgramCard program={p} />
+                <Link href={`/Programs/${p.documentId}`} className="block">
+                  <ProgramCard program={p} />
+                </Link>
               </SwiperSlide>
             ))
         }

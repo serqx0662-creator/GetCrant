@@ -1,34 +1,27 @@
-import Image from "next/image";
 import { BookOpen, Users, MapPin, Crown } from "lucide-react";
-import type { University } from "../data/mockUniversities";
+import type { University } from "../data/university";
 
 interface UniversityCardProps {
     university: University;
 }
 
 export default function UniversityCard({ university }: UniversityCardProps) {
-    const {
-        name,
-        image,
-        programsCount,
-        studentsCount,
-        location,
-        cost,
-        acceptanceRate,
-        type,
-    } = university;
+    const { name, imageUrl, programsCount, studentsCount, location, price, programsTotal, acceptanceRate, type } = university;
 
     return (
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col">
             {/* Image */}
-            <div className="relative h-48 w-full">
-                <Image
-                    src={image}
-                    alt={name}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                />
+            <div className="relative h-48 w-full bg-slate-200">
+                {imageUrl ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                        src={imageUrl}
+                        alt={name}
+                        className="w-full h-full object-cover"
+                    />
+                ) : (
+                    <div className="w-full h-full bg-slate-200" />
+                )}
                 <div className="absolute top-3 left-3 bg-blue-600 text-white p-1.5 rounded-md">
                     <Crown size={14} />
                 </div>
@@ -40,39 +33,35 @@ export default function UniversityCard({ university }: UniversityCardProps) {
 
                 {/* Stats */}
                 <div className="flex items-center gap-4">
-          <span className="flex items-center gap-1.5 text-xs text-gray-500">
-            <BookOpen size={13} className="text-gray-400" />
-              {programsCount} программ
-          </span>
                     <span className="flex items-center gap-1.5 text-xs text-gray-500">
-            <Users size={13} className="text-gray-400" />
-                        {studentsCount.toLocaleString("ru-RU")}
-          </span>
+                        <BookOpen size={13} className="text-gray-400" />
+                        {programsCount}
+                    </span>
+                    <span className="flex items-center gap-1.5 text-xs text-gray-500">
+                        <Users size={13} className="text-gray-400" />
+                        {studentsCount}
+                    </span>
                 </div>
 
                 {/* Location */}
                 <div className="flex items-center gap-1.5 text-xs text-gray-500">
                     <MapPin size={13} className="text-gray-400 shrink-0" />
-                    <span>
-            {location.city}, {location.state}, {location.country}
-          </span>
+                    <span>{location}</span>
                 </div>
 
                 {/* Info grid 2x2 */}
                 <div className="bg-gray-50 rounded-lg p-4 grid grid-cols-2 gap-x-4 gap-y-3 mt-auto">
                     <div>
                         <p className="text-[11px] text-gray-400 mb-0.5">Стоимость</p>
-                        <p className="text-sm font-semibold text-gray-800">
-                            ${cost.toLocaleString("en-US")}/год
-                        </p>
+                        <p className="text-sm font-semibold text-gray-800">{price}</p>
                     </div>
                     <div>
                         <p className="text-[11px] text-gray-400 mb-0.5">Программы</p>
-                        <p className="text-sm font-semibold text-gray-800">{programsCount}</p>
+                        <p className="text-sm font-semibold text-gray-800">{programsTotal}</p>
                     </div>
                     <div>
                         <p className="text-[11px] text-gray-400 mb-0.5">Процент поступления</p>
-                        <p className="text-sm font-semibold text-gray-800">{acceptanceRate}%</p>
+                        <p className="text-sm font-semibold text-gray-800">{acceptanceRate}</p>
                     </div>
                     <div>
                         <p className="text-[11px] text-gray-400 mb-0.5">Тип</p>
